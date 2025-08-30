@@ -60,24 +60,54 @@ export default function SubmissionForm() {
 
     setIsSubmitting(true)
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsSubmitting(false)
-    setSubmitSuccess(true)
-    
-    // Reset form after success
-    setTimeout(() => {
-      setSubmitSuccess(false)
-      setUploadedFiles([])
-      setFormData({
-        title: '',
-        description: '',
-        category: 'painting',
-        socialHandle: '',
-        email: ''
+    try {
+      // In a real implementation, you'd upload images to a service like Cloudinary first
+      // For now, we'll use the file names as image paths
+      const imagePaths = uploadedFiles.map(file => `/uploads/${file.name}`)
+      
+      const submissionData = {
+        artist: formData.title.split(' ')[0], // Simple artist extraction
+        title: formData.title,
+        description: formData.description,
+        category: formData.category,
+        images: imagePaths,
+        socialHandle: formData.socialHandle,
+        email: formData.email
+      }
+      
+      const response = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
       })
-    }, 3000)
+      
+      if (!response.ok) {
+        throw new Error('Failed to submit')
+      }
+      
+      setSubmitSuccess(true)
+      
+      // Reset form after success
+      setTimeout(() => {
+        setSubmitSuccess(false)
+        setUploadedFiles([])
+        setFormData({
+          title: '',
+          description: '',
+          category: 'painting',
+          socialHandle: '',
+          email: ''
+        })
+      }, 3000)
+      
+    } catch (error) {
+      console.error('Submission error:', error)
+      // You could add error handling here
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const categories = [
