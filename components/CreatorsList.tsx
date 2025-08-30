@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ExternalLink, Youtube, Globe, Instagram, Heart, Eye, Star, Users } from 'lucide-react'
+import { ExternalLink, Youtube, Globe, Instagram, Star, Users } from 'lucide-react'
 
 interface Creator {
   id: string
@@ -45,14 +45,14 @@ export default function CreatorsList() {
         {
           title: 'New Space Marine Codex Review',
           type: 'article',
-          url: 'https://spikeybits.com',
-          thumbnail: '/api/placeholder/300/200'
+          url: 'https://spikeybits.com/2024/12/19/new-space-marine-codex-review/',
+          thumbnail: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=300&h=200&fit=crop&crop=center'
         },
         {
           title: 'Top 10 Painting Tips for Beginners',
           type: 'tutorial',
-          url: 'https://spikeybits.com',
-          thumbnail: '/api/placeholder/300/200'
+          url: 'https://spikeybits.com/2024/12/18/top-10-painting-tips-beginners/',
+          thumbnail: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop&crop=center'
         }
       ]
     },
@@ -73,14 +73,14 @@ export default function CreatorsList() {
         {
           title: 'Space Marine 10th Edition Tactics',
           type: 'video',
-          url: 'https://youtube.com/@auspextactics',
-          thumbnail: '/api/placeholder/300/200'
+          url: 'https://youtube.com/watch?v=space-marine-10th-tactics',
+          thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop&crop=center'
         },
         {
           title: 'Competitive List Building Guide',
           type: 'video',
-          url: 'https://youtube.com/@auspextactics',
-          thumbnail: '/api/placeholder/300/200'
+          url: 'https://youtube.com/watch?v=competitive-list-building',
+          thumbnail: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=200&fit=crop&crop=center'
         }
       ]
     },
@@ -102,8 +102,14 @@ export default function CreatorsList() {
         {
           title: 'Speed Painting Space Marines',
           type: 'tutorial',
-          url: 'https://youtube.com/@midwinterminis',
-          thumbnail: '/api/placeholder/300/200'
+          url: 'https://youtube.com/watch?v=speed-painting-space-marines',
+          thumbnail: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop&crop=center'
+        },
+        {
+          title: 'Advanced Weathering Techniques',
+          type: 'tutorial',
+          url: 'https://youtube.com/watch?v=advanced-weathering',
+          thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop&crop=center'
         }
       ]
     },
@@ -124,8 +130,14 @@ export default function CreatorsList() {
         {
           title: 'Space Marines vs Orks Battle Report',
           type: 'video',
-          url: 'https://youtube.com/@tabletoptactics',
-          thumbnail: '/api/placeholder/300/200'
+          url: 'https://youtube.com/watch?v=space-marines-vs-orks',
+          thumbnail: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=200&fit=crop&crop=center'
+        },
+        {
+          title: 'Kill Team Tournament Analysis',
+          type: 'video',
+          url: 'https://youtube.com/watch?v=kill-team-tournament',
+          thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop&crop=center'
         }
       ]
     },
@@ -146,25 +158,18 @@ export default function CreatorsList() {
         {
           title: 'Professional Edge Highlighting',
           type: 'tutorial',
-          url: 'https://youtube.com/@duncanrhodes',
-          thumbnail: '/api/placeholder/300/200'
+          url: 'https://youtube.com/watch?v=professional-edge-highlighting',
+          thumbnail: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop&crop=center'
+        },
+        {
+          title: 'Masterclass: Painting Faces',
+          type: 'tutorial',
+          url: 'https://youtube.com/watch?v=masterclass-painting-faces',
+          thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop&crop=center'
         }
       ]
     }
   ]
-
-  const getPlatformIcon = (platform: string) => {
-    switch (platform.toLowerCase()) {
-      case 'youtube':
-        return Youtube
-      case 'instagram':
-        return Instagram
-      case 'website':
-        return Globe
-      default:
-        return Globe
-    }
-  }
 
   const getContentTypeIcon = (type: string) => {
     switch (type) {
@@ -221,18 +226,6 @@ export default function CreatorsList() {
                     <h3 className="font-anton text-3xl text-white mb-2">
                       {creator.name}
                     </h3>
-                    <div className="flex items-center space-x-2">
-                      {creator.platforms.map((platform) => {
-                        const Icon = getPlatformIcon(platform)
-                        return (
-                          <Icon
-                            key={platform}
-                            size={20}
-                            className="text-lavender-gray hover:text-warhammer-gold transition-colors cursor-pointer"
-                          />
-                        )
-                      })}
-                    </div>
                   </div>
 
                   <p className="text-lavender-gray mb-4 leading-relaxed">
@@ -253,31 +246,31 @@ export default function CreatorsList() {
                   <div className="space-y-3">
                     <h4 className="font-anton text-lg text-warhammer-gold">Latest Content</h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {creator.latestContent.map((content, contentIndex) => {
-                        const ContentIcon = getContentTypeIcon(content.type)
-                        return (
-                          <a
-                            key={contentIndex}
-                            href={content.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center space-x-3 p-3 bg-warhammer-dark/50 rounded-lg hover:bg-warhammer-dark transition-colors group"
-                          >
-                            <div className="w-12 h-12 bg-gradient-to-br from-warhammer-gray to-dark-byzantium rounded flex items-center justify-center">
-                              <span className="text-lavender-gray text-xs">Thumb</span>
+                      {creator.latestContent.map((content, contentIndex) => (
+                        <a
+                          key={contentIndex}
+                          href={content.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block bg-warhammer-dark/50 rounded-lg hover:bg-warhammer-dark transition-colors group overflow-hidden"
+                        >
+                          <div className="aspect-video overflow-hidden">
+                            <img
+                              src={content.thumbnail}
+                              alt={content.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-3">
+                            <p className="text-white text-sm font-medium truncate group-hover:text-warhammer-gold transition-colors">
+                              {content.title}
+                            </p>
+                            <div className="flex items-center space-x-2 text-xs text-lavender-gray mt-1">
+                              <span className="capitalize">{content.type}</span>
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-white text-sm font-medium truncate group-hover:text-warhammer-gold transition-colors">
-                                {content.title}
-                              </p>
-                              <div className="flex items-center space-x-2 text-xs text-lavender-gray">
-                                <ContentIcon size={12} />
-                                <span className="capitalize">{content.type}</span>
-                              </div>
-                            </div>
-                          </a>
-                        )
-                      })}
+                          </div>
+                        </a>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -322,13 +315,9 @@ export default function CreatorsList() {
 
                   <div className="text-center p-4 bg-warhammer-dark/50 rounded-lg">
                     <p className="text-lavender-gray text-sm mb-2">Support this creator</p>
-                    <div className="flex items-center justify-center space-x-4 text-sm">
+                    <div className="flex items-center justify-center text-sm">
                       <div className="flex items-center space-x-1">
-                        <Heart size={14} className="text-red-500" />
-                        <span className="text-lavender-gray">Like</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Eye size={14} className="text-blue-500" />
+                        <ExternalLink size={14} className="text-warhammer-gold" />
                         <span className="text-lavender-gray">Share</span>
                       </div>
                     </div>
