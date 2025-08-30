@@ -1,211 +1,208 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Heart, Eye, Share2, Calendar, User, Tag, X } from 'lucide-react'
+import { Calendar, User, Tag, X } from 'lucide-react'
+import EngagementBar from './EngagementBar'
 
-interface Submission {
+interface FanSubmission {
   id: string
+  artist: string
   title: string
   description: string
   category: string
-  artist: string
-  socialHandle?: string
   images: string[]
+  date: string
+  socialHandle?: string
   likes: number
   views: number
-  date: string
-  featured: boolean
+  comments: number
 }
 
+const categories = [
+  { value: 'all', label: 'All Categories' },
+  { value: 'miniatures', label: 'Miniatures' },
+  { value: 'painting', label: 'Painting' },
+  { value: 'terrain', label: 'Terrain' },
+  { value: 'conversions', label: 'Conversions' },
+  { value: 'battle-reports', label: 'Battle Reports' },
+  { value: 'other', label: 'Other' }
+]
+
+// Mock data - replace with actual API call
+const mockSubmissions: FanSubmission[] = [
+  {
+    id: '1',
+    artist: 'Yarrick',
+    title: 'Grimdark Space Marine Captain',
+    description: 'A heavily weathered Space Marine Captain with battle damage and grimdark weathering effects. Used oil washes and chipping techniques for realistic battle wear.',
+    category: 'miniatures',
+    images: ['/images/Fan-Submissions/Yarrick-30.8.25/Yarrick1.jpeg', '/images/Fan-Submissions/Yarrick-30.8.25/Yarrick2.jpeg', '/images/Fan-Submissions/Yarrick-30.8.25/Yarrick3.jpeg', '/images/Fan-Submissions/Yarrick-30.8.25/Yarrick4.jpeg'],
+    date: '2024-08-30',
+    socialHandle: 'yarrick_paints',
+    likes: 156,
+    views: 1200,
+    comments: 23
+  },
+  {
+    id: '2',
+    artist: 'GrimdarkGuru',
+    title: 'Chaos Terminator Squad',
+    description: 'A squad of heavily converted Chaos Terminators with custom greenstuff work and unique paint schemes. Each model tells its own story of corruption.',
+    category: 'miniatures',
+    images: ['/images/Fan-Submissions/Yarrick-30.8.25/Yarrick1.jpeg'],
+    date: '2024-08-29',
+    socialHandle: 'grimdark_guru',
+    likes: 89,
+    views: 800,
+    comments: 15
+  },
+  {
+    id: '3',
+    artist: 'PaintMaster',
+    title: 'Imperial Knight House Colors',
+    description: 'Custom Imperial Knight with unique house colors and weathering effects. Used airbrushing and oil washes for smooth gradients and realistic wear.',
+    category: 'miniatures',
+    images: ['/images/Fan-Submissions/Yarrick-30.8.25/Yarrick2.jpeg'],
+    date: '2024-08-28',
+    socialHandle: 'paint_master',
+    likes: 234,
+    views: 2100,
+    comments: 45
+  },
+  {
+    id: '4',
+    artist: 'TerrainTitan',
+    title: 'Industrial Ruins Complex',
+    description: 'Large industrial terrain piece with multiple levels, walkways, and detailed machinery. Perfect for urban warfare scenarios.',
+    category: 'terrain',
+    images: ['/images/Fan-Submissions/Yarrick-30.8.25/Yarrick3.jpeg'],
+    date: '2024-08-27',
+    socialHandle: 'terrain_titan',
+    likes: 178,
+    views: 1500,
+    comments: 32
+  },
+  {
+    id: '5',
+    artist: 'ConversionKing',
+    title: 'Ork Warboss Conversion',
+    description: 'Heavily converted Ork Warboss using parts from multiple kits. Custom greenstuff work for unique armor and weapons.',
+    category: 'conversions',
+    images: ['/images/Fan-Submissions/Yarrick-30.8.25/Yarrick4.jpeg'],
+    date: '2024-08-26',
+    socialHandle: 'conversion_king',
+    likes: 145,
+    views: 1100,
+    comments: 28
+  }
+]
+
 export default function SubmissionsGallery() {
+  const [submissions, setSubmissions] = useState<FanSubmission[]>(mockSubmissions)
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null)
+  const [selectedSubmission, setSelectedSubmission] = useState<FanSubmission | null>(null)
+  const [filteredSubmissions, setFilteredSubmissions] = useState<FanSubmission[]>(mockSubmissions)
 
-  // Sample submissions including the first one from "Yarrick"
-  const submissions: Submission[] = [
-    {
-      id: '1',
-      title: 'Imperial Fists Terminator Squad',
-      description: 'My latest Imperial Fists Terminator squad, painted with a weathered battle-worn look. Used oil washes and weathering powders for realistic effects.',
-      category: 'painting',
-      artist: 'Yarrick',
-      socialHandle: '@commissaryarrick',
-      images: ['/api/placeholder/400/400', '/api/placeholder/400/400', '/api/placeholder/400/400'],
-      likes: 156,
-      views: 1247,
-      date: '2024-01-15',
-      featured: true
-    },
-    {
-      id: '2',
-      title: 'Custom Ork Warboss',
-      description: 'Kitbashed Ork Warboss using parts from multiple kits. Added custom armor plates and a unique banner design.',
-      category: 'conversion',
-      artist: 'WarbossGrimskull',
-      socialHandle: '@warbossgrimskull',
-      images: ['/api/placeholder/400/400', '/api/placeholder/400/400'],
-      likes: 89,
-      views: 567,
-      date: '2024-01-14',
-      featured: false
-    },
-    {
-      id: '3',
-      title: 'Industrial Terrain Set',
-      description: 'Complete industrial terrain set for urban battles. Built from scratch using plasticard and various household materials.',
-      category: 'terrain',
-      artist: 'TerrainMaster',
-      socialHandle: '@terrainmaster',
-      images: ['/api/placeholder/400/400', '/api/placeholder/400/400', '/api/placeholder/400/400', '/api/placeholder/400/400'],
-      likes: 234,
-      views: 1892,
-      date: '2024-01-13',
-      featured: true
-    },
-    {
-      id: '4',
-      title: 'Eldar Wraithknight',
-      description: 'Eldar Wraithknight with custom color scheme inspired by ancient Aeldari art. Freehand patterns and gem effects.',
-      category: 'painting',
-      artist: 'AeldariCraft',
-      socialHandle: '@aeldaricraft',
-      images: ['/api/placeholder/400/400', '/api/placeholder/400/400'],
-      likes: 178,
-      views: 945,
-      date: '2024-01-12',
-      featured: false
+  useEffect(() => {
+    if (selectedCategory === 'all') {
+      setFilteredSubmissions(submissions)
+    } else {
+      setFilteredSubmissions(submissions.filter(sub => sub.category === selectedCategory))
     }
-  ]
-
-  const categories = [
-    { value: 'all', label: 'All Categories' },
-    { value: 'painting', label: 'Painting & Miniatures' },
-    { value: 'terrain', label: 'Terrain & Scenery' },
-    { value: 'conversion', label: 'Conversions & Kitbashing' },
-    { value: 'battlefield', label: 'Battlefield & Gaming' },
-    { value: 'other', label: 'Other' }
-  ]
-
-  const filteredSubmissions = selectedCategory === 'all' 
-    ? submissions 
-    : submissions.filter(sub => sub.category === selectedCategory)
+  }, [selectedCategory, submissions])
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
     })
   }
 
   return (
-    <div>
+    <div className="space-y-8">
       {/* Category Filter */}
-      <div className="mb-8">
-        <div className="flex flex-wrap gap-2 justify-center">
-          {categories.map((category) => (
-            <button
-              key={category.value}
-              onClick={() => setSelectedCategory(category.value)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                selectedCategory === category.value
-                  ? 'bg-warhammer-gold text-warhammer-dark'
-                  : 'bg-warhammer-gray/50 text-text-light hover:bg-warhammer-gray hover:text-white'
-              }`}
-            >
-              {category.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Gallery Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredSubmissions.map((submission, index) => (
-          <motion.div
-            key={submission.id}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.1 }}
-            className="warhammer-card group cursor-pointer"
-            onClick={() => setSelectedSubmission(submission)}
+      <div className="flex flex-wrap justify-center gap-3">
+        {categories.map((category) => (
+          <button
+            key={category.value}
+            onClick={() => setSelectedCategory(category.value)}
+            className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+              selectedCategory === category.value
+                ? 'bg-warhammer-gold text-warhammer-dark'
+                : 'bg-warhammer-gray/50 text-text-light hover:bg-warhammer-gray hover:text-white'
+            }`}
           >
-            {/* Featured Badge */}
-            {submission.featured && (
-              <div className="absolute top-4 left-4 z-10">
-                <div className="bg-warhammer-gold text-warhammer-dark font-anton text-xs px-2 py-1 rounded">
-                  FEATURED
-                </div>
-              </div>
-            )}
-
-            {/* Main Image */}
-            <div className="relative mb-4 overflow-hidden rounded-lg">
-              <div className="aspect-square bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center">
-                <span className="text-text-light text-sm">Submission Image</span>
-              </div>
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
-              
-              {/* Image Count Badge */}
-              {submission.images.length > 1 && (
-                <div className="absolute top-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                  +{submission.images.length - 1} more
-                </div>
-              )}
-            </div>
-
-            {/* Content */}
-            <div className="space-y-3">
-              <div className="flex items-start justify-between">
-                <span className="bg-warhammer-gold text-warhammer-dark text-xs font-anton px-2 py-1 rounded">
-                  {submission.category}
-                </span>
-                <div className="flex items-center space-x-1 text-text-light text-sm">
-                  <Calendar size={14} />
-                  <span>{formatDate(submission.date)}</span>
-                </div>
-              </div>
-
-              <h3 className="font-anton text-xl text-white group-hover:text-warhammer-gold transition-colors duration-300">
-                {submission.title}
-              </h3>
-              
-              <p className="text-text-light line-clamp-3">
-                {submission.description}
-              </p>
-
-              <div className="flex items-center justify-between text-sm text-text-light">
-                <div className="flex items-center space-x-2">
-                  <User size={14} />
-                  <span className="font-medium">{submission.artist}</span>
-                  {submission.socialHandle && (
-                    <span className="text-warhammer-gold">@{submission.socialHandle.split('@')[1]}</span>
-                  )}
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between text-sm text-text-light">
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-1">
-                    <Eye size={14} />
-                    <span>{submission.views}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Heart size={14} />
-                    <span>{submission.likes}</span>
-                  </div>
-                </div>
-                <Share2 size={14} className="text-warhammer-gold" />
-              </div>
-            </div>
-          </motion.div>
+            {category.label}
+          </button>
         ))}
       </div>
 
-      {/* No Results */}
-      {filteredSubmissions.length === 0 && (
+      {/* Submissions Grid */}
+      {filteredSubmissions.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredSubmissions.map((submission) => (
+            <motion.div
+              key={submission.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="warhammer-card group cursor-pointer hover:scale-105 transition-transform duration-300"
+              onClick={() => setSelectedSubmission(submission)}
+            >
+              {/* Image */}
+              <div className="relative mb-4 overflow-hidden rounded-lg">
+                <div className="aspect-square bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center">
+                  <span className="text-text-light text-sm">Submission Image</span>
+                </div>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
+              </div>
+
+              {/* Content */}
+              <div className="p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="bg-warhammer-gold text-warhammer-dark text-xs font-anton px-2 py-1 rounded">
+                    {submission.category}
+                  </span>
+                  <div className="flex items-center space-x-1 text-text-light text-sm">
+                    <Calendar size={14} />
+                    <span>{formatDate(submission.date)}</span>
+                  </div>
+                </div>
+
+                <h3 className="font-anton text-xl text-white mb-3 group-hover:text-warhammer-gold transition-colors duration-300">
+                  {submission.title}
+                </h3>
+                
+                <p className="text-text-light line-clamp-3">
+                  {submission.description}
+                </p>
+
+                <div className="flex items-center justify-between text-sm text-text-light">
+                  <div className="flex items-center space-x-2">
+                    <User size={14} />
+                    <span>{submission.artist}</span>
+                  </div>
+                  {submission.socialHandle && (
+                    <span className="text-warhammer-gold">@{submission.socialHandle}</span>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between text-sm text-text-light">
+                  <div className="flex items-center space-x-4">
+                    <span className="flex items-center space-x-1">
+                      <Calendar size={14} />
+                      <span>{submission.images.length} images</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      ) : (
         <div className="text-center py-16">
           <Tag className="w-16 h-16 text-text-light mx-auto mb-4" />
           <h3 className="font-anton text-2xl text-white mb-2">No Submissions Found</h3>
@@ -222,18 +219,19 @@ export default function SubmissionsGallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
             onClick={() => setSelectedSubmission(null)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-warhammer-gray border border-warhammer-gold/30 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-warhammer-dark border border-warhammer-gold/30 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-6">
-                <div className="flex items-start justify-between mb-6">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-6">
                   <h2 className="font-anton text-3xl text-white">{selectedSubmission.title}</h2>
                   <button
                     onClick={() => setSelectedSubmission(null)}
@@ -243,7 +241,7 @@ export default function SubmissionsGallery() {
                   </button>
                 </div>
 
-                {/* Images */}
+                {/* Image Gallery */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                   {selectedSubmission.images.map((image, index) => (
                     <div key={index} className="aspect-square bg-gradient-to-br from-warhammer-gray to-dark-byzantium rounded-lg flex items-center justify-center">
@@ -258,8 +256,10 @@ export default function SubmissionsGallery() {
                     <span className="bg-warhammer-gold text-warhammer-dark font-anton px-2 py-1 rounded">
                       {selectedSubmission.category}
                     </span>
-                    <span>By {selectedSubmission.artist}</span>
-                    <span>{formatDate(selectedSubmission.date)}</span>
+                    <span className="flex items-center space-x-1">
+                      <Calendar size={14} />
+                      <span>{formatDate(selectedSubmission.date)}</span>
+                    </span>
                   </div>
 
                   <p className="text-text-light leading-relaxed">
@@ -268,26 +268,29 @@ export default function SubmissionsGallery() {
 
                   <div className="flex items-center justify-between text-sm text-text-light">
                     <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-1">
-                        <Eye size={16} />
-                        <span>{selectedSubmission.views} views</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Heart size={16} />
-                        <span>{selectedSubmission.likes} likes</span>
-                      </div>
+                      <span className="flex items-center space-x-1">
+                        <User size={14} />
+                        <span>{selectedSubmission.artist}</span>
+                      </span>
+                      {selectedSubmission.socialHandle && (
+                        <span className="text-warhammer-gold">@{selectedSubmission.socialHandle}</span>
+                      )}
                     </div>
-                    {selectedSubmission.socialHandle && (
-                      <a
-                        href={`https://instagram.com/${selectedSubmission.socialHandle.split('@')[1]}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-warhammer-gold hover:text-yellow-400 transition-colors"
-                      >
-                        Follow {selectedSubmission.artist}
-                      </a>
-                    )}
                   </div>
+                </div>
+
+                {/* Engagement Bar */}
+                <div className="mt-6">
+                  <EngagementBar
+                    type="submissions"
+                    id={selectedSubmission.id}
+                    initialData={{
+                      likes: selectedSubmission.likes,
+                      views: selectedSubmission.views
+                    }}
+                    showViews={true}
+                    showComments={false}
+                  />
                 </div>
               </div>
             </motion.div>

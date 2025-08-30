@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ExternalLink, Calendar, Tag, Eye, Heart, RefreshCw } from 'lucide-react'
+import EngagementBar from './EngagementBar'
 
 interface NewsArticle {
   id: string
@@ -229,7 +230,7 @@ export default function LatestNews() {
                     <span className={`px-3 py-1 rounded-full text-xs font-bold ${getCategoryColor(article.category)}`}>
                       {article.category}
                     </span>
-                    <span className="text-xs text-lavender-gray flex items-center gap-1">
+                    <span className="text-xs text-text-light flex items-center gap-1">
                       <Calendar size={12} />
                       {formatDate(article.date)}
                     </span>
