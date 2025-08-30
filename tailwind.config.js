@@ -10,7 +10,7 @@ module.exports = {
       colors: {
         'dark-byzantium': '#502F4C',
         'old-lavender': '#70587C',
-        'lavender-gray': '#C8B8DB',
+        'lavender-gray': '#6A5B7C',
         'languid-lavender': '#DCCFEC',
         'warhammer-gold': '#fbca1b',
         'warhammer-red': '#8B0000',
