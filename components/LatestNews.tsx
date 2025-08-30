@@ -37,8 +37,17 @@ export default function LatestNews() {
       const response = await fetch('/api/news')
       
       if (response.ok) {
-        const data = await response.json()
-        setNewsData(data)
+        const responseData = await response.json()
+        
+        // Handle the wrapped API response structure
+        if (responseData.success && responseData.data) {
+          setNewsData(responseData.data)
+        } else if (responseData.articles) {
+          // Fallback for direct data structure
+          setNewsData(responseData)
+        } else {
+          setError('Invalid news data format')
+        }
       } else {
         setError('Failed to load news')
       }
