@@ -10,32 +10,32 @@ export default function AffiliateLinks() {
       description: 'Premium gaming mats and terrain for your Warhammer 40k battles. High-quality materials and stunning designs.',
       category: 'Gaming Accessories',
       discount: '15% OFF',
-      code: 'DAILY15',
+      code: 'DDOW11',
       url: 'https://gamemat.eu',
       rating: 4.8,
       reviews: 1247,
       image: '/api/placeholder/300/200'
     },
     {
-      name: 'EA Gaming',
+      name: 'EA & J Labs LLC',
       description: 'Professional gaming equipment and accessories. From dice to storage solutions, everything you need for the hobby.',
       category: 'Gaming Equipment',
       discount: '20% OFF',
-      code: 'WARHAMMER20',
-      url: 'https://eagaming.com',
+      code: 'DAILYDOSE',
+      url: 'https://eaandjlabsllc.etsy.com',
       rating: 4.6,
       reviews: 892,
       image: '/api/placeholder/300/200'
     },
     {
-      name: 'J Labs',
-      description: 'Innovative hobby tools and painting supplies. Quality brushes, paints, and accessories for serious painters.',
-      category: 'Hobby Supplies',
-      discount: '25% OFF',
-      code: 'JLABS25',
-      url: 'https://jlabs.com',
-      rating: 4.9,
-      reviews: 2156,
+      name: 'Spikey Bits',
+      description: 'Warhammer 40k news, tactics, and hobby content. Stay updated with the latest releases and community insights.',
+      category: 'Warhammer Content',
+      discount: '10% OFF',
+      code: 'DAILYDOSE',
+      url: 'https://spikeybits.com',
+      rating: 4.7,
+      reviews: 1850,
       image: '/api/placeholder/300/200'
     }
   ]
@@ -57,7 +57,7 @@ export default function AffiliateLinks() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {affiliatePartners.map((partner, index) => (
             <motion.div
               key={partner.name}

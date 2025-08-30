@@ -9,7 +9,7 @@ export default function SocialLinks() {
       name: 'Instagram',
       description: 'Follow us for daily Warhammer inspiration, painting tips, and community highlights.',
       icon: Instagram,
-      url: 'https://instagram.com',
+      url: process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://www.instagram.com/dailydoseofwarhammer/?hl=en',
       color: 'from-pink-500 to-purple-600',
       followers: '15.2k'
     },
@@ -17,7 +17,7 @@ export default function SocialLinks() {
       name: 'YouTube',
       description: 'Watch painting tutorials, battle reports, and Warhammer 40k content from top creators.',
       icon: Youtube,
-      url: 'https://youtube.com',
+      url: process.env.NEXT_PUBLIC_YOUTUBE_URL || 'https://www.youtube.com/@YourDailyDoseOfWarhammer',
       color: 'from-red-500 to-red-700',
       followers: '8.7k'
     },
@@ -25,7 +25,7 @@ export default function SocialLinks() {
       name: 'TikTok',
       description: 'Quick Warhammer tips, painting hacks, and entertaining hobby content in short form.',
       icon: MessageCircle,
-      url: 'https://tiktok.com',
+      url: process.env.NEXT_PUBLIC_TIKTOK_URL || 'https://www.tiktok.com/@dailydoseofwarhammer',
       color: 'from-blue-500 to-purple-600',
       followers: '12.4k'
     },
@@ -33,7 +33,7 @@ export default function SocialLinks() {
       name: 'Discord',
       description: 'Join our community server to discuss tactics, share your work, and connect with fellow hobbyists.',
       icon: MessageCircle,
-      url: 'https://discord.gg',
+      url: process.env.NEXT_PUBLIC_DISCORD_INVITE || 'https://discord.gg/RP95BNkRH6',
       color: 'from-indigo-500 to-purple-600',
       followers: '3.1k'
     }
