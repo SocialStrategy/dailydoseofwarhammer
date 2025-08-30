@@ -225,7 +225,7 @@ export default function SubmissionsGallery() {
 
                 {/* Image Gallery */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  {selectedSubmission.images.map((image, index) => (
+                  {selectedSubmission.images && selectedSubmission.images.map((image, index) => (
                     <div key={index} className="aspect-square bg-gradient-to-br from-warhammer-gray to-dark-byzantium rounded-lg flex items-center justify-center">
                       <span className="text-text-light text-sm">Image {index + 1}</span>
                     </div>

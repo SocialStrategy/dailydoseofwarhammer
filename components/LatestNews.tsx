@@ -136,7 +136,7 @@ export default function LatestNews() {
     )
   }
 
-  if (!newsData || newsData.articles.length === 0) {
+  if (!newsData || !newsData.articles || newsData.articles.length === 0) {
     return (
       <section className="py-20 px-4 lg:px-8 bg-gradient-to-b from-old-lavender to-lavender-gray">
         <div className="max-w-7xl mx-auto text-center">
