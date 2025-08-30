@@ -75,6 +75,27 @@ export default function FeaturedCommunityPost() {
     )
   }
 
+  // Additional safety check for images array
+  if (!featuredPost.images || !Array.isArray(featuredPost.images) || featuredPost.images.length === 0) {
+    return (
+      <section className="py-20 px-4 lg:px-8 bg-gradient-to-b from-lavender-gray to-languid-lavender">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center">
+            <h2 className="section-title text-warhammer-gold mb-4">
+              FEATURED COMMUNITY POST
+            </h2>
+            <p className="content-text text-text-light max-w-3xl mx-auto">
+              Featured post data is incomplete. Please check the submission.
+            </p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  // Generate a unique ID if none exists
+  const submissionId = featuredPost.id || `submission-${featuredPost.artist}-${featuredPost.date}`
+
   return (
     <section className="py-20 px-4 lg:px-8 bg-gradient-to-b from-lavender-gray to-languid-lavender">
       <div className="max-w-7xl mx-auto">
@@ -141,7 +162,7 @@ export default function FeaturedCommunityPost() {
             {/* Engagement Bar */}
             <EngagementBar
               type="submissions"
-              id={featuredPost.id}
+              id={submissionId}
               initialData={{
                 shares: 0
               }}
