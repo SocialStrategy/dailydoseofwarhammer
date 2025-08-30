@@ -14,9 +14,6 @@ interface FanSubmission {
   images: string[]
   date: string
   socialHandle?: string
-  likes: number
-  views: number
-  comments: number
 }
 
 const categories = [
@@ -39,10 +36,7 @@ const mockSubmissions: FanSubmission[] = [
     category: 'miniatures',
     images: ['/images/Fan-Submissions/Yarrick-30.8.25/Yarrick1.jpeg', '/images/Fan-Submissions/Yarrick-30.8.25/Yarrick2.jpeg', '/images/Fan-Submissions/Yarrick-30.8.25/Yarrick3.jpeg', '/images/Fan-Submissions/Yarrick-30.8.25/Yarrick4.jpeg'],
     date: '2024-08-30',
-    socialHandle: 'yarrick_paints',
-    likes: 156,
-    views: 1200,
-    comments: 23
+    socialHandle: 'yarrick_paints'
   },
   {
     id: '2',
@@ -52,10 +46,7 @@ const mockSubmissions: FanSubmission[] = [
     category: 'miniatures',
     images: ['/images/Fan-Submissions/Yarrick-30.8.25/Yarrick1.jpeg'],
     date: '2024-08-29',
-    socialHandle: 'grimdark_guru',
-    likes: 89,
-    views: 800,
-    comments: 15
+    socialHandle: 'grimdark_guru'
   },
   {
     id: '3',
@@ -65,10 +56,7 @@ const mockSubmissions: FanSubmission[] = [
     category: 'miniatures',
     images: ['/images/Fan-Submissions/Yarrick-30.8.25/Yarrick2.jpeg'],
     date: '2024-08-28',
-    socialHandle: 'paint_master',
-    likes: 234,
-    views: 2100,
-    comments: 45
+    socialHandle: 'paint_master'
   },
   {
     id: '4',
@@ -78,10 +66,7 @@ const mockSubmissions: FanSubmission[] = [
     category: 'terrain',
     images: ['/images/Fan-Submissions/Yarrick-30.8.25/Yarrick3.jpeg'],
     date: '2024-08-27',
-    socialHandle: 'terrain_titan',
-    likes: 178,
-    views: 1500,
-    comments: 32
+    socialHandle: 'terrain_titan'
   },
   {
     id: '5',
@@ -91,10 +76,7 @@ const mockSubmissions: FanSubmission[] = [
     category: 'conversions',
     images: ['/images/Fan-Submissions/Yarrick-30.8.25/Yarrick4.jpeg'],
     date: '2024-08-26',
-    socialHandle: 'conversion_king',
-    likes: 145,
-    views: 1100,
-    comments: 28
+    socialHandle: 'conversion_king'
   }
 ]
 
@@ -285,11 +267,8 @@ export default function SubmissionsGallery() {
                     type="submissions"
                     id={selectedSubmission.id}
                     initialData={{
-                      likes: selectedSubmission.likes,
-                      views: selectedSubmission.views
+                      shares: 0
                     }}
-                    showViews={true}
-                    showComments={false}
                   />
                 </div>
               </div>

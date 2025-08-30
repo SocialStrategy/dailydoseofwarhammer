@@ -2,19 +2,15 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Heart, Share2, Eye, MessageCircle } from 'lucide-react'
+import { Share2 } from 'lucide-react'
 import { useEngagement } from '@/utils/useEngagement'
 
 interface EngagementBarProps {
   type: 'submissions' | 'news' | 'content'
   id: string
   initialData?: {
-    likes?: number
     shares?: number
-    views?: number
   }
-  showViews?: boolean
-  showComments?: boolean
   className?: string
 }
 
@@ -22,8 +18,6 @@ export default function EngagementBar({
   type,
   id,
   initialData,
-  showViews = true,
-  showComments = false,
   className = ''
 }: EngagementBarProps) {
   const [showShareOptions, setShowShareOptions] = useState(false)
@@ -33,9 +27,7 @@ export default function EngagementBar({
     engagement,
     isLoading,
     error,
-    like,
     share,
-    isLiked,
     isShared
   } = useEngagement({ type, id, initialData })
 
@@ -101,32 +93,8 @@ export default function EngagementBar({
       {/* Engagement Bar */}
       <div className="bg-warhammer-gray/80 backdrop-blur-sm border border-warhammer-gold/30 rounded-lg p-3">
         <div className="flex items-center justify-between">
-          {/* Left Side - Engagement Stats */}
+          {/* Left Side - Share Stats */}
           <div className="flex items-center space-x-4">
-            {/* Likes */}
-            <button
-              onClick={like}
-              disabled={isLoading}
-              className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
-                isLiked 
-                  ? 'bg-warhammer-red/20 text-warhammer-red border border-warhammer-red/30' 
-                  : 'text-text-light hover:bg-warhammer-gray hover:text-white border border-transparent'
-              }`}
-            >
-              <motion.div
-                animate={isLiked ? { scale: [1, 1.2, 1] } : {}}
-                transition={{ duration: 0.3 }}
-              >
-                <Heart 
-                  size={16} 
-                  className={isLiked ? 'fill-current' : ''} 
-                />
-              </motion.div>
-              <span className="font-medium">
-                {isLoading ? '...' : engagement.likes.toLocaleString()}
-              </span>
-            </button>
-
             {/* Shares */}
             <button
               onClick={handleShare}
@@ -142,24 +110,6 @@ export default function EngagementBar({
                 {isLoading ? '...' : engagement.shares.toLocaleString()}
               </span>
             </button>
-
-            {/* Views */}
-            {showViews && (
-              <div className="flex items-center space-x-2 px-3 py-2 text-text-light">
-                <Eye size={16} />
-                <span className="font-medium">
-                  {engagement.views.toLocaleString()}
-                </span>
-              </div>
-            )}
-
-            {/* Comments */}
-            {showComments && (
-              <div className="flex items-center space-x-2 px-3 py-2 text-text-light">
-                <MessageCircle size={16} />
-                <span className="font-medium">0</span>
-              </div>
-            )}
           </div>
 
           {/* Right Side - Share Button */}

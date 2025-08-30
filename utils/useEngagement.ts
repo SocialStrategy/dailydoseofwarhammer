@@ -2,10 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 
 export interface EngagementData {
   id: string
-  likes: number
   shares: number
-  views: number
-  likedBy: string[]
   sharedBy: string[]
   lastUpdated: string
 }
@@ -20,20 +17,14 @@ export interface UseEngagementReturn {
   engagement: EngagementData
   isLoading: boolean
   error: string | null
-  like: () => Promise<void>
   share: () => Promise<void>
-  view: () => Promise<void>
-  isLiked: boolean
   isShared: boolean
 }
 
 export function useEngagement({ type, id, initialData }: UseEngagementProps): UseEngagementReturn {
   const [engagement, setEngagement] = useState<EngagementData>({
     id,
-    likes: initialData?.likes || 0,
     shares: initialData?.shares || 0,
-    views: initialData?.views || 0,
-    likedBy: initialData?.likedBy || [],
     sharedBy: initialData?.sharedBy || [],
     lastUpdated: initialData?.lastUpdated || new Date().toISOString()
   })
@@ -60,7 +51,7 @@ export function useEngagement({ type, id, initialData }: UseEngagementProps): Us
       try {
         const response = await fetch(`/api/engagement?type=${type}&id=${id}`)
         if (response.ok) {
-          const { data } = await response.json()
+          const data = await response.json()
           setEngagement(data)
         }
       } catch (err) {
@@ -72,12 +63,9 @@ export function useEngagement({ type, id, initialData }: UseEngagementProps): Us
     loadEngagement()
   }, [type, id])
   
-  // Track view on mount
-  useEffect(() => {
-    view()
-  }, [type, id])
+  // No automatic view tracking - removed to fix API error
   
-  const updateEngagement = useCallback(async (action: 'like' | 'share' | 'view') => {
+  const updateEngagement = useCallback(async (action: 'share') => {
     setIsLoading(true)
     setError(null)
     
@@ -91,12 +79,12 @@ export function useEngagement({ type, id, initialData }: UseEngagementProps): Us
           type,
           id,
           action,
-          userId: action === 'view' ? undefined : userId
+          userId
         }),
       })
       
       if (response.ok) {
-        const { data } = await response.json()
+        const data = await response.json()
         setEngagement(data)
       } else {
         const errorData = await response.json()
@@ -110,21 +98,15 @@ export function useEngagement({ type, id, initialData }: UseEngagementProps): Us
     }
   }, [type, id, userId])
   
-  const like = useCallback(() => updateEngagement('like'), [updateEngagement])
   const share = useCallback(() => updateEngagement('share'), [updateEngagement])
-  const view = useCallback(() => updateEngagement('view'), [updateEngagement])
   
-  const isLiked = engagement.likedBy.includes(userId)
   const isShared = engagement.sharedBy.includes(userId)
   
   return {
     engagement,
     isLoading,
     error,
-    like,
     share,
-    view,
-    isLiked,
     isShared
   }
 }

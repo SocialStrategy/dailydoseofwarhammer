@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, Calendar, Tag, Eye, Heart, RefreshCw } from 'lucide-react'
+import { ExternalLink, Calendar, Tag, RefreshCw } from 'lucide-react'
 import EngagementBar from './EngagementBar'
 
 interface NewsArticle {
@@ -11,17 +11,13 @@ interface NewsArticle {
   excerpt: string
   category: string
   date: string
-  image?: string | null
-  link?: string | null
-  source: string
-  views: number
-  likes: number
+  image: string
+  link: string
 }
 
 interface NewsData {
-  lastUpdated: string
   articles: NewsArticle[]
-  totalArticles: number
+  lastUpdated: string
 }
 
 export default function LatestNews() {
@@ -38,17 +34,16 @@ export default function LatestNews() {
     try {
       setLoading(true)
       setError(null)
-      
       const response = await fetch('/api/news')
-      const result = await response.json()
       
-      if (result.success) {
-        setNewsData(result.data)
+      if (response.ok) {
+        const data = await response.json()
+        setNewsData(data)
       } else {
-        setError(result.message || 'Failed to fetch news')
+        setError('Failed to load news')
       }
     } catch (err) {
-      setError('Failed to connect to news service')
+      setError('Error loading news')
       console.error('Error fetching news:', err)
     } finally {
       setLoading(false)
@@ -56,26 +51,35 @@ export default function LatestNews() {
   }
 
   const refreshNews = async () => {
-    setRefreshing(true)
-    await fetchNews()
-    setRefreshing(false)
+    try {
+      setRefreshing(true)
+      const response = await fetch('/api/news', { method: 'POST' })
+      
+      if (response.ok) {
+        await fetchNews()
+      } else {
+        setError('Failed to refresh news')
+      }
+    } catch (err) {
+      setError('Error refreshing news')
+      console.error('Error refreshing news:', err)
+    } finally {
+      setRefreshing(false)
+    }
   }
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     const now = new Date()
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
+    const diffTime = Math.abs(now.getTime() - date.getTime())
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
     
-    if (diffInHours < 1) return 'Just now'
-    if (diffInHours < 24) return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`
-    
-    const diffInDays = Math.floor(diffInHours / 24)
-    if (diffInDays < 7) return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`
-    
+    if (diffDays === 1) return 'Yesterday'
+    if (diffDays < 7) return `${diffDays} days ago`
     return date.toLocaleDateString('en-US', { 
       month: 'short', 
       day: 'numeric',
-      year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
+      year: 'numeric'
     })
   }
 
@@ -97,45 +101,9 @@ export default function LatestNews() {
   if (loading) {
     return (
       <section className="py-20 px-4 lg:px-8 bg-gradient-to-b from-old-lavender to-lavender-gray">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="section-title text-warhammer-gold mb-4">
-              LATEST NEWS
-            </h2>
-            <p className="content-text text-lavender-gray max-w-3xl mx-auto">
-              Stay updated with the latest Warhammer Community news and announcements
-            </p>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(6)].map((_, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="warhammer-card animate-pulse"
-              >
-                <div className="h-48 bg-warhammer-gray/30 rounded-t-xl"></div>
-                <div className="p-6">
-                  <div className="h-4 bg-warhammer-gray/30 rounded mb-3"></div>
-                  <div className="h-3 bg-warhammer-gray/30 rounded mb-2"></div>
-                  <div className="h-3 bg-warhammer-gray/30 rounded mb-4"></div>
-                  <div className="flex justify-between items-center">
-                    <div className="h-3 w-20 bg-warhammer-gray/30 rounded"></div>
-                    <div className="h-3 w-16 bg-warhammer-gray/30 rounded"></div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="animate-spin w-12 h-12 border-4 border-warhammer-gold border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-text-light">Loading latest news...</p>
         </div>
       </section>
     )
@@ -145,25 +113,42 @@ export default function LatestNews() {
     return (
       <section className="py-20 px-4 lg:px-8 bg-gradient-to-b from-old-lavender to-lavender-gray">
         <div className="max-w-7xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+          <h2 className="section-title text-warhammer-gold mb-4">
+            Latest News
+          </h2>
+          <p className="text-warhammer-red mb-4">{error}</p>
+          <button
+            onClick={refreshNews}
+            disabled={refreshing}
+            className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-red transition-colors duration-300 disabled:opacity-50"
           >
-            <h2 className="section-title text-warhammer-gold mb-4">
-              LATEST NEWS
-            </h2>
-            <div className="warhammer-card max-w-2xl mx-auto">
-              <p className="text-warhammer-red mb-4">{error}</p>
-              <button
-                onClick={fetchNews}
-                className="warhammer-button"
-              >
-                Try Again
-              </button>
-            </div>
-          </motion.div>
+            {refreshing ? (
+              <>
+                <RefreshCw className="w-5 h-5 animate-spin mr-2" />
+                Refreshing...
+              </>
+            ) : (
+              'Try Again'
+            )}
+          </button>
+        </div>
+      </section>
+    )
+  }
+
+  if (!newsData || newsData.articles.length === 0) {
+    return (
+      <section className="py-20 px-4 lg:px-8 bg-gradient-to-b from-old-lavender to-lavender-gray">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="section-title text-warhammer-gold">
+            Latest News
+          </h2>
+          <p className="content-text text-text-light max-w-3xl mx-auto">
+            No news articles available at the moment.
+          </p>
+          <p className="text-sm text-text-light mt-2">
+            Last updated: {newsData?.lastUpdated ? formatDate(newsData.lastUpdated) : 'Never'}
+          </p>
         </div>
       </section>
     )
@@ -172,6 +157,7 @@ export default function LatestNews() {
   return (
     <section className="py-20 px-4 lg:px-8 bg-gradient-to-b from-old-lavender to-lavender-gray">
       <div className="max-w-7xl mx-auto">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -179,19 +165,9 @@ export default function LatestNews() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <h2 className="section-title text-warhammer-gold">
-              LATEST NEWS
-            </h2>
-            <button
-              onClick={refreshNews}
-              disabled={refreshing}
-              className="text-warhammer-gold hover:text-warhammer-red transition-colors duration-300 disabled:opacity-50"
-              title="Refresh news"
-            >
-              <RefreshCw size={20} className={refreshing ? 'animate-spin' : ''} />
-            </button>
-          </div>
+          <h2 className="section-title text-warhammer-gold mb-4">
+            Latest News
+          </h2>
           <p className="content-text text-text-light max-w-3xl mx-auto">
             Stay updated with the latest news, updates, and announcements from the Warhammer universe. 
             From new releases to community events, we've got you covered.
@@ -203,118 +179,92 @@ export default function LatestNews() {
           )}
         </motion.div>
 
-        {newsData && newsData.articles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {newsData.articles.slice(0, 9).map((article, index) => (
-              <motion.article
-                key={article.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="warhammer-card group hover:scale-105 transition-transform duration-300"
-              >
-                {article.image && (
-                  <div className="relative h-48 overflow-hidden rounded-t-xl">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  </div>
-                )}
-                
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${getCategoryColor(article.category)}`}>
-                      {article.category}
-                    </span>
-                    <span className="text-xs text-text-light flex items-center gap-1">
-                      <Calendar size={12} />
-                      {formatDate(article.date)}
-                    </span>
-                  </div>
-                  
-                  <h3 className="font-anton text-xl text-white mb-3 group-hover:text-warhammer-gold transition-colors duration-300">
-                    {article.title}
-                  </h3>
-                  
-                  <p className="text-text-light mb-4 line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-4 text-sm text-text-light">
-                      <span className="flex items-center gap-1">
-                        <Eye size={14} />
-                        {article.views.toLocaleString()}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Heart size={14} />
-                        {article.likes.toLocaleString()}
-                      </span>
-                    </div>
-                    
-                    <span className="text-xs text-warhammer-gold font-bold">
-                      {article.source}
-                    </span>
-                  </div>
-                  
-                  {article.link && (
-                    <a
-                      href={article.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="warhammer-button w-full text-center group-hover:bg-warhammer-gold group-hover:text-warhammer-dark transition-all duration-300"
-                    >
-                      <ExternalLink size={16} className="inline mr-2" />
-                      Read More
-                    </a>
-                  )}
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <div className="warhammer-card max-w-2xl mx-auto">
-              <p className="text-text-light mb-4">No news articles available at the moment.</p>
-              <button
-                onClick={refreshNews}
-                className="warhammer-button"
-              >
-                Refresh News
-              </button>
-            </div>
-          </motion.div>
-        )}
-        
-        {newsData && newsData.totalArticles > 9 && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
-            <a
-              href="https://www.warhammer-community.com/en-gb/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark"
+        {/* News Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {newsData.articles.slice(0, 9).map((article, index) => (
+            <motion.article
+              key={article.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="warhammer-card group cursor-pointer hover:scale-105 transition-transform duration-300"
             >
-              <ExternalLink size={20} className="inline mr-2" />
-              View All News on Warhammer Community
-            </a>
-          </motion.div>
-        )}
+              {/* Image */}
+              <div className="relative mb-4 overflow-hidden rounded-lg">
+                <div className="aspect-video bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center">
+                  <span className="text-text-light text-sm">News Image</span>
+                </div>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
+                
+                {/* Category Badge */}
+                <div className="absolute top-3 left-3">
+                  <span className={`px-3 py-1 rounded-full text-xs font-bold ${getCategoryColor(article.category)}`}>
+                    {article.category}
+                  </span>
+                </div>
+                
+                {/* External Link Icon */}
+                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <ExternalLink size={16} className="text-warhammer-gold" />
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-4">
+                <div className="flex items-center justify-between text-sm text-text-light mb-3">
+                  <span className="flex items-center space-x-1">
+                    <Calendar size={14} />
+                    <span>{formatDate(article.date)}</span>
+                  </span>
+                </div>
+
+                <h3 className="font-anton text-xl text-white mb-3 group-hover:text-warhammer-gold transition-colors duration-300">
+                  {article.title}
+                </h3>
+                
+                <p className="text-text-light mb-4 line-clamp-3">
+                  {article.excerpt}
+                </p>
+              </div>
+
+              {/* Engagement Bar */}
+              <div className="px-4 pb-4">
+                <EngagementBar
+                  type="news"
+                  id={article.id}
+                  initialData={{
+                    shares: 0
+                  }}
+                />
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        {/* Load More Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mt-16"
+        >
+          <button
+            onClick={refreshNews}
+            disabled={refreshing}
+            className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-red transition-colors duration-300 disabled:opacity-50"
+          >
+            {refreshing ? (
+              <>
+                <RefreshCw className="w-5 h-5 animate-spin mr-2" />
+                Refreshing...
+              </>
+            ) : (
+              'Refresh News'
+            )}
+          </button>
+        </motion.div>
       </div>
     </section>
   )

@@ -14,9 +14,6 @@ interface FanSubmission {
   images: string[]
   date: string
   socialHandle?: string
-  likes?: number
-  views?: number
-  comments?: number
 }
 
 export default function FeaturedCommunityPost() {
@@ -146,11 +143,8 @@ export default function FeaturedCommunityPost() {
               type="submissions"
               id={featuredPost.id}
               initialData={{
-                likes: featuredPost.likes || 0,
-                views: featuredPost.views || 0
+                shares: 0
               }}
-              showViews={true}
-              showComments={false}
               className="mb-6"
             />
 

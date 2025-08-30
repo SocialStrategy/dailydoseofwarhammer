@@ -4,6 +4,20 @@ import path from 'path'
 
 const DATA_FILE = path.join(process.cwd(), 'data', 'engagement.json')
 
+interface EngagementRecord {
+  id: string
+  shares: number
+  sharedBy: string[]
+  lastUpdated: string
+}
+
+interface EngagementStore {
+  submissions: { [id: string]: EngagementRecord }
+  news: { [id: string]: EngagementRecord }
+  content: { [id: string]: EngagementRecord }
+  lastUpdated: string
+}
+
 // Ensure data directory exists
 const ensureDataDir = () => {
   const dataDir = path.dirname(DATA_FILE)
@@ -13,11 +27,11 @@ const ensureDataDir = () => {
 }
 
 // Load engagement data
-const loadEngagementData = () => {
+const loadEngagementData = (): EngagementStore => {
   ensureDataDir()
   
   if (!fs.existsSync(DATA_FILE)) {
-    const defaultData = {
+    const defaultData: EngagementStore = {
       submissions: {},
       news: {},
       content: {},
@@ -29,161 +43,104 @@ const loadEngagementData = () => {
   
   try {
     const data = fs.readFileSync(DATA_FILE, 'utf-8')
-    return JSON.parse(data)
+    return JSON.parse(data) as EngagementStore
   } catch (error) {
-    console.error('Error loading engagement data:', error)
-    return {
+    console.error('Error reading engagement data file, initializing new one:', error)
+    const defaultData: EngagementStore = {
       submissions: {},
       news: {},
       content: {},
       lastUpdated: new Date().toISOString()
     }
+    fs.writeFileSync(DATA_FILE, JSON.stringify(defaultData, null, 2))
+    return defaultData
   }
 }
 
 // Save engagement data
-const saveEngagementData = (data: any) => {
+const saveEngagementData = (data: EngagementStore) => {
   ensureDataDir()
-  try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2))
-  } catch (error) {
-    console.error('Error saving engagement data:', error)
-  }
+  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2))
 }
 
-// Generate unique ID for tracking
-const generateTrackingId = (type: string, id: string) => `${type}_${id}`
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const type = searchParams.get('type')
+  const id = searchParams.get('id')
+
+  if (!type || !id) {
+    return NextResponse.json({ error: 'Missing required query parameters: type, id' }, { status: 400 })
+  }
+
+  // Validate type is a valid key
+  if (!['submissions', 'news', 'content'].includes(type)) {
+    return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 })
+  }
+
+  const engagementData = loadEngagementData()
+  let record: EngagementRecord
+  
+  if (type === 'submissions') {
+    record = engagementData.submissions[id] || { id, shares: 0, sharedBy: [], lastUpdated: new Date().toISOString() }
+  } else if (type === 'news') {
+    record = engagementData.news[id] || { id, shares: 0, sharedBy: [], lastUpdated: new Date().toISOString() }
+  } else {
+    record = engagementData.content[id] || { id, shares: 0, sharedBy: [], lastUpdated: new Date().toISOString() }
+  }
+  
+  return NextResponse.json(record)
+}
 
 export async function POST(request: NextRequest) {
   try {
     const { type, id, action, userId } = await request.json()
-    
-    if (!type || !id || !action) {
-      return NextResponse.json(
-        { error: 'Missing required fields: type, id, action' },
-        { status: 400 }
-      )
+
+    if (!type || !id || !action || !userId) {
+      return NextResponse.json({ error: 'Missing required fields: type, id, action, userId' }, { status: 400 })
     }
-    
+
+    if (action !== 'share') {
+      return NextResponse.json({ error: 'Invalid action. Only "share" is supported.' }, { status: 400 })
+    }
+
+    // Validate type is a valid key
+    if (!['submissions', 'news', 'content'].includes(type)) {
+      return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 })
+    }
+
     const engagementData = loadEngagementData()
-    const trackingId = generateTrackingId(type, id)
-    
-    // Initialize if not exists
-    if (!engagementData[type]) {
-      engagementData[type] = {}
+    let record: EngagementRecord
+
+    if (type === 'submissions') {
+      if (!engagementData.submissions[id]) {
+        engagementData.submissions[id] = { id, shares: 0, sharedBy: [], lastUpdated: new Date().toISOString() }
+      }
+      record = engagementData.submissions[id]
+    } else if (type === 'news') {
+      if (!engagementData.news[id]) {
+        engagementData.news[id] = { id, shares: 0, sharedBy: [], lastUpdated: new Date().toISOString() }
+      }
+      record = engagementData.news[id]
+    } else {
+      if (!engagementData.content[id]) {
+        engagementData.content[id] = { id, shares: 0, sharedBy: [], lastUpdated: new Date().toISOString() }
+      }
+      record = engagementData.content[id]
     }
-    
-    if (!engagementData[type][trackingId]) {
-      engagementData[type][trackingId] = {
-        id,
-        likes: 0,
-        shares: 0,
-        views: 0,
-        likedBy: [],
-        sharedBy: [],
-        lastUpdated: new Date().toISOString()
+
+    if (action === 'share') {
+      if (!record.sharedBy.includes(userId)) {
+        record.shares += 1
+        record.sharedBy.push(userId)
       }
     }
     
-    const item = engagementData[type][trackingId]
-    
-    switch (action) {
-      case 'like':
-        if (userId) {
-          if (item.likedBy.includes(userId)) {
-            // Unlike
-            item.likedBy = item.likedBy.filter((uid: string) => uid !== userId)
-            item.likes = Math.max(0, item.likes - 1)
-          } else {
-            // Like
-            item.likedBy.push(userId)
-            item.likes += 1
-          }
-        } else {
-          // Anonymous like (increment by 1)
-          item.likes += 1
-        }
-        break
-        
-      case 'share':
-        if (userId) {
-          if (!item.sharedBy.includes(userId)) {
-            item.sharedBy.push(userId)
-            item.shares += 1
-          }
-        } else {
-          // Anonymous share (increment by 1)
-          item.shares += 1
-        }
-        break
-        
-      case 'view':
-        item.views += 1
-        break
-        
-      default:
-        return NextResponse.json(
-          { error: 'Invalid action. Use: like, share, or view' },
-          { status: 400 }
-        )
-    }
-    
-    item.lastUpdated = new Date().toISOString()
-    engagementData.lastUpdated = new Date().toISOString()
-    
+    record.lastUpdated = new Date().toISOString()
     saveEngagementData(engagementData)
-    
-    return NextResponse.json({
-      success: true,
-      data: item,
-      message: `${action} action completed successfully`
-    })
-    
-  } catch (error) {
-    console.error('Engagement API error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
-  }
-}
 
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url)
-    const type = searchParams.get('type')
-    const id = searchParams.get('id')
-    
-    if (!type || !id) {
-      return NextResponse.json(
-        { error: 'Missing required parameters: type, id' },
-        { status: 400 }
-      )
-    }
-    
-    const engagementData = loadEngagementData()
-    const trackingId = generateTrackingId(type, id)
-    
-    const item = engagementData[type]?.[trackingId] || {
-      id,
-      likes: 0,
-      shares: 0,
-      views: 0,
-      likedBy: [],
-      sharedBy: [],
-      lastUpdated: new Date().toISOString()
-    }
-    
-    return NextResponse.json({
-      success: true,
-      data: item
-    })
-    
+    return NextResponse.json(record)
   } catch (error) {
-    console.error('Engagement API error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    console.error('API Error:', error)
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }
