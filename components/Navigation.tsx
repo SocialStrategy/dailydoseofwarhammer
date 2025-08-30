@@ -13,7 +13,6 @@ export default function Navigation() {
     { name: 'Home', href: '/' },
     { name: 'Creators We Love', href: '/creators' },
     { name: 'Fan Submissions', href: '/submissions' },
-    { name: 'Admin', href: '/admin' },
   ]
 
   const socialLinks = [
