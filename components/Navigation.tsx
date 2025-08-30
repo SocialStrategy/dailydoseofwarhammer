@@ -4,23 +4,21 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Instagram, Youtube, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const menuItems = [
     { name: 'Home', href: '/' },
-    { name: 'Featured Content', href: '/featured' },
-    { name: 'Latest News', href: '/news' },
     { name: 'Creators We Love', href: '/creators' },
     { name: 'Fan Submissions', href: '/submissions' },
-    { name: 'Affiliate Links', href: '/affiliates' },
   ]
 
   const socialLinks = [
-    { name: 'Instagram', href: 'https://instagram.com', icon: Instagram },
-    { name: 'YouTube', href: 'https://youtube.com', icon: Youtube },
-    { name: 'Discord', href: 'https://discord.gg', icon: MessageCircle },
+    { name: 'Instagram', href: 'https://www.instagram.com/dailydoseofwarhammer/', icon: Instagram },
+    { name: 'YouTube', href: 'https://www.youtube.com/@dailydoseofwarhammer', icon: Youtube },
+    { name: 'Discord', href: 'https://discord.gg/dailydoseofwarhammer', icon: MessageCircle },
   ]
 
   return (
@@ -33,13 +31,27 @@ export default function Navigation() {
           transition={{ duration: 0.5 }}
           className="flex items-center"
         >
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-warhammer-gold rounded-lg flex items-center justify-center">
-              <span className="font-anton text-warhammer-dark text-lg">DD</span>
+          <Link href="/" className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-[#2D2D2D] rounded-xl flex items-center justify-center border border-warhammer-gold/30">
+              {/* Globe Icon */}
+              <div className="relative w-7 h-7">
+                <div className="absolute inset-0 border-2 border-white rounded-full"></div>
+                <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-white transform -translate-y-1/2"></div>
+                <div className="absolute top-1/4 left-0 right-0 h-0.5 bg-white transform -translate-y-1/2"></div>
+                <div className="absolute top-3/4 left-0 right-0 h-0.5 bg-white transform -translate-y-1/2"></div>
+                <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white transform -translate-x-1/2"></div>
+                <div className="absolute left-1/4 top-0 bottom-0 w-0.5 bg-white transform -translate-x-1/2"></div>
+                <div className="absolute left-3/4 top-0 bottom-0 w-0.5 bg-white transform -translate-x-1/2"></div>
+              </div>
             </div>
-            <span className="font-anton text-white text-xl hidden sm:block">
-              Daily Dose
-            </span>
+            <div className="hidden sm:block">
+              <div className="text-white font-anton text-lg leading-tight">
+                Daily Dose of
+              </div>
+              <div className="text-warhammer-gold font-anton text-xl leading-tight">
+                Warhammer
+              </div>
+            </div>
           </Link>
         </motion.div>
 

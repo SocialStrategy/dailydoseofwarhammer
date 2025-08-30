@@ -5,13 +5,63 @@ import Navigation from './Navigation'
 
 export default function HeroSection() {
   return (
-    <section className="relative h-screen overflow-hidden">
-      {/* Background Video */}
-      <div className="absolute inset-0 w-full h-full">
-        <div className="relative w-full h-full">
-          {/* Instagram Video Embed */}
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="w-full max-w-md mx-auto">
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-warhammer-dark via-warhammer-gray to-dark-byzantium">
+      {/* Navigation */}
+      <Navigation />
+
+      {/* Hero Content Layout */}
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center min-h-screen px-4 lg:px-8 pt-20">
+        
+        {/* Left Side - Text Content */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex-1 text-center lg:text-left mb-8 lg:mb-0 lg:pr-8"
+        >
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="hero-text mb-6 lg:mb-8"
+          >
+            DAILY DOSE OF WARHAMMER
+          </motion.h1>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="font-bitter text-xl lg:text-2xl text-lavender-gray max-w-2xl mx-auto lg:mx-0 mb-8 lg:mb-12"
+          >
+            Your daily source for Warhammer 40,000 content, news, and community submissions. 
+            In the grim darkness of the far future, there is only war... and our passion for the hobby.
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center"
+          >
+            <a href="/submissions" className="warhammer-button">
+              SUBMIT YOUR WORK
+            </a>
+            <a href="/creators" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
+              EXPLORE CREATORS
+            </a>
+          </motion.div>
+        </motion.div>
+
+        {/* Right Side - Instagram Video */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex-1 flex justify-center lg:justify-end"
+        >
+          <div className="w-full max-w-lg">
+            <div className="bg-white rounded-lg shadow-2xl overflow-hidden">
               <iframe
                 src="https://www.instagram.com/reel/DKvAVkGsMfJ/embed"
                 className="w-full aspect-square"
@@ -22,51 +72,7 @@ export default function HeroSection() {
               />
             </div>
           </div>
-          
-          {/* Fallback background if embed fails */}
-          <div className="absolute inset-0 bg-gradient-to-br from-warhammer-dark via-warhammer-gray to-dark-byzantium opacity-20 pointer-events-none" />
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <Navigation />
-
-      {/* Hero Content */}
-      <div className="relative z-10 flex items-center justify-center h-full">
-        <div className="text-center px-4 lg:px-8">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="hero-text mb-6 lg:mb-8"
-          >
-            DAILY DOSE OF WARHAMMER
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="font-bitter text-xl lg:text-2xl text-lavender-gray max-w-4xl mx-auto mb-8 lg:mb-12"
-          >
-            Your daily source for Warhammer 40,000 content, news, and community submissions. 
-            In the grim darkness of the far future, there is only war... and our passion for the hobby.
-          </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <a href="/submissions" className="warhammer-button">
-              SUBMIT YOUR WORK
-            </a>
-            <a href="/creators" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
-              EXPLORE CREATORS
-            </a>
-          </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Scroll Indicator */}

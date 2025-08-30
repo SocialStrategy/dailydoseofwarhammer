@@ -1,0 +1,25 @@
+<svg width="300" height="60" viewBox="0 0 300 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark gray background with rounded corners -->
+  <rect x="0" y="0" width="300" height="60" rx="12" fill="#2D2D2D"/>
+  
+  <!-- Globe icon -->
+  <circle cx="30" cy="30" r="18" stroke="white" stroke-width="2" fill="none"/>
+  
+  <!-- Horizontal lines (latitude) -->
+  <line x1="12" y1="30" x2="48" y2="30" stroke="white" stroke-width="1.5"/>
+  <line x1="15" y1="24" x2="45" y2="24" stroke="white" stroke-width="1.5"/>
+  <line x1="15" y1="36" x2="45" y2="36" stroke="white" stroke-width="1.5"/>
+  
+  <!-- Vertical lines (longitude) -->
+  <line x1="30" y1="12" x2="30" y2="48" stroke="white" stroke-width="1.5"/>
+  <line x1="24" y1="15" x2="24" y2="45" stroke="white" stroke-width="1.5"/>
+  <line x1="36" y1="15" x2="36" y2="45" stroke="white" stroke-width="1.5"/>
+  
+  <!-- Text: Daily Dose of Warhammer -->
+  <text x="70" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="white">
+    Daily Dose of
+  </text>
+  <text x="70" y="42" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="white">
+    Warhammer
+  </text>
+</svg>
