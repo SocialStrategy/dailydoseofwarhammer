@@ -6,10 +6,16 @@
   "framework": "nextjs",
   "regions": ["iad1"],
   "functions": {
-    "app/api/**/*.ts": {
+    "app/api/news/route.ts": {
       "maxDuration": 30
     }
   },
+  "crons": [
+    {
+      "path": "/api/cron/scrape-news",
+      "schedule": "0 9 * * *"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -48,8 +54,8 @@
   ],
   "rewrites": [
     {
-      "source": "/api/warhammer-community/(.*)",
-      "destination": "https://www.warhammer-community.com/$1"
+      "source": "/api/warhammer-community/:path*",
+      "destination": "https://www.warhammer-community.com/:path*"
     }
   ]
 }
