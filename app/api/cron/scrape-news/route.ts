@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     console.log('🚀 Vercel cron job triggered - starting news scraping...');
 
     // Import and run the scraper
-    const { WarhammerNewsScraper } = await import('../../../../scripts/scrape-news.js');
+    const WarhammerNewsScraper = (await import('../../../../scripts/scrape-news.js')).default;
     const scraper = new WarhammerNewsScraper();
     
     const news = await scraper.scrapeNews();
