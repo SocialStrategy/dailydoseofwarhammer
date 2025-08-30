@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-anton: 'Anton', sans-serif;
+    --font-bitter: 'Bitter', serif;
+    --font-cinzel: 'Cinzel', serif;
+  }
+
+  body {
+    @apply bg-warhammer-dark text-white;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-warhammer-gray;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-warhammer-gold rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-yellow-400;
+  }
+}
+
+@layer components {
+  .grimdark-gradient {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #502F4C 100%);
+  }
+
+  .warhammer-text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  .warhammer-border {
+    @apply border-2 border-warhammer-gold;
+  }
+
+  .warhammer-button {
+    @apply bg-warhammer-gold text-warhammer-dark font-anton px-6 py-3 rounded-lg 
+           hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105
+           shadow-lg hover:shadow-xl;
+  }
+
+  .warhammer-card {
+    @apply bg-warhammer-gray/80 backdrop-blur-sm border border-warhammer-gold/30 
+           rounded-xl p-6 hover:border-warhammer-gold/60 transition-all duration-300;
+  }
+
+  .hero-text {
+    @apply font-anton text-hero leading-none text-white warhammer-text-shadow;
+  }
+
+  .section-title {
+    @apply font-anton text-4xl lg:text-6xl text-warhammer-gold mb-8 text-center;
+  }
+
+  .content-text {
+    @apply font-bitter text-lg leading-relaxed;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .backdrop-blur-custom {
+    backdrop-filter: blur(10px) saturate(180%);
+    background-color: rgba(26, 26, 26, 0.8);
+  }
+}
