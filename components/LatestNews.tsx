@@ -201,9 +201,17 @@ export default function LatestNews() {
             >
               {/* Image */}
               <div className="relative mb-4 overflow-hidden rounded-lg">
-                <div className="aspect-video bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center">
-                  <span className="text-text-light text-sm">News Image</span>
-                </div>
+                {article.image ? (
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="w-full h-full object-cover aspect-video"
+                  />
+                ) : (
+                  <div className="aspect-video bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center">
+                    <span className="text-text-light text-sm">News Image</span>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
                 
                 {/* Category Badge */}
