@@ -1,27 +1,72 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Heart, Eye, MessageCircle, Share2, Star } from 'lucide-react'
 
+interface FanSubmission {
+  artist: string
+  title: string
+  description: string
+  category: string
+  images: string[]
+  date: string
+  tags: string[]
+  likes?: number
+  views?: number
+  comments?: number
+}
+
 export default function FeaturedCommunityPost() {
-  // This would be the featured post data - you can update with actual images
-  const featuredPost = {
-    artist: 'Yarrick',
-    title: 'My Latest Miniature Painting Project',
-    description: 'A detailed showcase of my latest Warhammer 40k miniature painting work. This project took several weeks to complete and features advanced techniques including edge highlighting, weathering, and custom basing.',
-    category: 'Miniature Painting',
-    images: [
-      '/images/yarrick-miniature-1.jpg',
-      '/images/yarrick-miniature-2.jpg', 
-      '/images/yarrick-miniature-3.jpg',
-      '/images/yarrick-miniature-4.jpg',
-      '/images/yarrick-miniature-5.jpg'
-    ],
-    likes: 247,
-    views: 1893,
-    comments: 56,
-    date: '2024-01-15',
-    tags: ['Painting', 'Warhammer 40k', 'Advanced Techniques', 'Custom Basing']
+  const [featuredPost, setFeaturedPost] = useState<FanSubmission | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchFeaturedPost = async () => {
+      try {
+        const response = await fetch('/api/featured-post')
+        if (!response.ok) {
+          throw new Error('Failed to fetch featured post')
+        }
+        const data = await response.json()
+        setFeaturedPost(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load featured post')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchFeaturedPost()
+  }, [])
+
+  if (loading) {
+    return (
+      <section className="py-20 px-4 lg:px-8 bg-gradient-to-b from-lavender-gray to-languid-lavender">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="animate-pulse">
+            <div className="h-8 bg-warhammer-gold/30 rounded w-64 mx-auto mb-4"></div>
+            <div className="h-4 bg-warhammer-gold/20 rounded w-96 mx-auto"></div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (error || !featuredPost) {
+    return (
+      <section className="py-20 px-4 lg:px-8 bg-gradient-to-b from-lavender-gray to-languid-lavender">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="section-title text-warhammer-gold mb-4">
+            FEATURED COMMUNITY POST
+          </h2>
+          <p className="content-text text-lavender-gray">
+            {error || 'No featured post available at the moment.'}
+          </p>
+        </div>
+      </section>
+    )
   }
 
   return (
@@ -39,7 +84,7 @@ export default function FeaturedCommunityPost() {
           </h2>
           <p className="content-text text-lavender-gray max-w-3xl mx-auto">
             Showcasing exceptional work from our talented community members. 
-            This week's featured post highlights incredible miniature painting skills.
+            This week's featured post highlights incredible grimdark miniature painting skills.
           </p>
         </motion.div>
 
@@ -99,9 +144,9 @@ export default function FeaturedCommunityPost() {
             </div>
           </div>
 
-          {/* Image Gallery */}
+          {/* Image Gallery - 4 images in 2x2 grid */}
           <div className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               {featuredPost.images.map((image, index) => (
                 <motion.div
                   key={index}
@@ -111,19 +156,13 @@ export default function FeaturedCommunityPost() {
                   viewport={{ once: true }}
                   className="group cursor-pointer"
                 >
-                  <div className="aspect-square bg-gradient-to-br from-warhammer-gray to-dark-byzantium rounded-lg overflow-hidden border border-warhammer-gold/30 group-hover:border-warhammer-gold transition-all duration-300">
-                    {/* Placeholder for actual images */}
-                    <div className="w-full h-full flex items-center justify-center">
-                      <div className="text-center">
-                        <Star className="w-8 h-8 text-warhammer-gold mx-auto mb-2" />
-                        <p className="text-lavender-gray text-sm">
-                          {index === 0 ? 'Main View' : 
-                           index === 1 ? 'Detail Shot' :
-                           index === 2 ? 'Side View' :
-                           index === 3 ? 'Close-up' : 'Basing Detail'}
-                        </p>
-                      </div>
-                    </div>
+                  <div className="aspect-square bg-gradient-to-br from-warhammer-gray to-dark-byzantium rounded-lg overflow-hidden border border-warhammer-gold/30 group-hover:border-warhammer-gold transition-all duration-300 relative">
+                    {/* Actual image from fan submission */}
+                    <img 
+                      src={image} 
+                      alt={`${featuredPost.artist}'s miniature painting - view ${index + 1}`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                     
                     {/* Hover overlay */}
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -141,15 +180,15 @@ export default function FeaturedCommunityPost() {
               <div className="flex items-center space-x-6">
                 <div className="flex items-center space-x-2">
                   <Heart className="w-5 h-5 text-warhammer-red" />
-                  <span>{featuredPost.likes.toLocaleString()}</span>
+                  <span>{featuredPost.likes?.toLocaleString() || '0'}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Eye className="w-5 h-5 text-warhammer-gold" />
-                  <span>{featuredPost.views.toLocaleString()}</span>
+                  <span>{featuredPost.views?.toLocaleString() || '0'}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <MessageCircle className="w-5 h-5 text-warhammer-gold" />
-                  <span>{featuredPost.comments}</span>
+                  <span>{featuredPost.comments || '0'}</span>
                 </div>
               </div>
               

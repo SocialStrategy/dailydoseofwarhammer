@@ -1,30 +1,52 @@
-# Featured Community Post Images
+# Fan Submission Images
 
-This directory should contain the 5 miniature painting images from "Yarrick" for the featured community post.
+This directory contains fan-submitted miniature painting work that gets featured on the website.
 
-## Required Images
+## Directory Structure
 
-1. **`yarrick-miniature-1.jpg`** - Main view of the miniature
-2. **`yarrick-miniature-2.jpg`** - Detail shot showing painting techniques
-3. **`yarrick-miniature-3.jpg`** - Side view of the miniature
-4. **`yarrick-miniature-4.jpg`** - Close-up of specific details
-5. **`yarrick-miniature-5.jpg`** - Basing detail and overall composition
+```
+Fan-Submissions/
+├── ArtistName-DD.MM.YY/
+│   ├── Image1.jpeg
+│   ├── Image2.jpeg
+│   ├── Image3.jpeg
+│   └── Image4.jpeg
+└── README.md
+```
+
+## How It Works
+
+1. **Automatic Featured Post**: The website automatically uses the **most recent** submission folder as the featured community post
+2. **Folder Naming**: Use format `ArtistName-DD.MM.YY` (e.g., `Yarrick-30.8.25`)
+3. **Image Requirements**: 
+   - **Format**: JPG, JPEG, PNG, GIF, or WebP
+   - **Quantity**: Up to 10 images per submission
+   - **Quality**: High resolution for detail visibility
+   - **Content**: Warhammer 40k miniature painting showcase
+
+## Current Featured Submission
+
+**Yarrick-30.8.25** - Iron Warriors Terminator with grimdark painting style
+- 4 high-quality images showcasing weathering and battle damage
+- Automatically featured on the homepage
+
+## Adding New Submissions
+
+1. Create a new folder with format: `ArtistName-DD.MM.YY`
+2. Add your miniature painting images to the folder
+3. The website will automatically feature the most recent submission
+4. Images are sorted alphabetically within each folder
 
 ## Image Specifications
 
-- **Format**: JPG or PNG
 - **Recommended Size**: 800x800 pixels or larger
-- **Quality**: High resolution for detail visibility
-- **Content**: Warhammer 40k miniature painting showcase
+- **File Types**: JPG, JPEG, PNG, GIF, WebP
+- **Naming**: Use descriptive names (e.g., `front-view.jpg`, `detail-shot.jpg`)
+- **Content**: Warhammer 40k miniatures, terrain, or painting showcases
 
-## How to Add Images
+## Benefits
 
-1. Place your 5 images in this directory
-2. Name them exactly as listed above
-3. The component will automatically display them in the featured post
-
-## Current Status
-
-⚠️ **Images not yet added** - The component is currently showing placeholders until you add the actual images.
-
-Once you add the images, the featured community post will display your beautiful miniature painting work!
+- **Automatic Updates**: Newest submission becomes featured automatically
+- **Organized Storage**: Each artist gets their own dated folder
+- **Easy Management**: Simple folder structure for administrators
+- **Dynamic Content**: Website always shows the latest community work
