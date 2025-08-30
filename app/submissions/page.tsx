@@ -4,7 +4,35 @@ import SubmissionsGallery from '@/components/SubmissionsGallery'
 
 export const metadata: Metadata = {
   title: 'Fan Submissions - Daily Dose of Warhammer',
-  description: 'Submit your Warhammer 40k work and view amazing community submissions. Share your passion with fellow hobbyists.',
+  description: 'Submit your Warhammer 40k miniatures, paintings, and creations to the Daily Dose of Warhammer community. Share your work with fellow hobbyists.',
+  keywords: [
+    'Warhammer fan submissions',
+    'Warhammer 40k submissions',
+    'Warhammer miniatures',
+    'Warhammer painting',
+    'Warhammer community',
+    'submit Warhammer art',
+    'Warhammer hobby submissions',
+    'Warhammer fan art'
+  ],
+  openGraph: {
+    title: 'Fan Submissions - Daily Dose of Warhammer',
+    description: 'Submit your Warhammer 40k miniatures, paintings, and creations to the Daily Dose of Warhammer community.',
+    url: 'https://dailydoseofwarhammer.com/submissions',
+    images: [
+      {
+        url: 'https://dailydoseofwarhammer.com/images/ddow logo.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Warhammer 40k Fan Submissions',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Fan Submissions - Daily Dose of Warhammer',
+    description: 'Submit your Warhammer 40k miniatures, paintings, and creations to the Daily Dose of Warhammer community.',
+  },
 }
 
 export default function SubmissionsPage() {
@@ -18,8 +46,7 @@ export default function SubmissionsPage() {
               FAN SUBMISSIONS
             </h1>
             <p className="font-bitter text-xl lg:text-2xl text-lavender-gray max-w-4xl mx-auto">
-              Share your Warhammer 40k creations with the community. From painted miniatures to custom terrain, 
-              showcase your hobby skills and inspire others.
+              Share your Warhammer 40k creations with the community. Submit your miniatures, paintings, and hobby projects.
             </p>
           </div>
 
