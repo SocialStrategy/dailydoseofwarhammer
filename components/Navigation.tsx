@@ -32,17 +32,14 @@ export default function Navigation() {
           className="flex items-center"
         >
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-[#2D2D2D] rounded-xl flex items-center justify-center border border-warhammer-gold/30">
-              {/* Globe Icon */}
-              <div className="relative w-7 h-7">
-                <div className="absolute inset-0 border-2 border-white rounded-full"></div>
-                <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-white transform -translate-y-1/2"></div>
-                <div className="absolute top-1/4 left-0 right-0 h-0.5 bg-white transform -translate-y-1/2"></div>
-                <div className="absolute top-3/4 left-0 right-0 h-0.5 bg-white transform -translate-y-1/2"></div>
-                <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white transform -translate-x-1/2"></div>
-                <div className="absolute left-1/4 top-0 bottom-0 w-0.5 bg-white transform -translate-x-1/2"></div>
-                <div className="absolute left-3/4 top-0 bottom-0 w-0.5 bg-white transform -translate-x-1/2"></div>
-              </div>
+            <div className="w-12 h-12 rounded-xl overflow-hidden border border-warhammer-gold/30">
+              <Image
+                src="/images/ddow logo.jpg"
+                alt="Daily Dose of Warhammer Logo"
+                width={48}
+                height={48}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="hidden sm:block">
               <div className="text-white font-anton text-lg leading-tight">

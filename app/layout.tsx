@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Anton, Bitter, Cinzel } from 'next/font/google'
+import Navigation from '@/components/Navigation'
 import './globals.css'
 
 const anton = Anton({ 
@@ -25,9 +26,9 @@ export const metadata: Metadata = {
   keywords: 'Warhammer 40k, Warhammer, 40k, tabletop gaming, miniatures, hobby',
   authors: [{ name: 'Daily Dose of Warhammer' }],
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   openGraph: {
     title: 'Daily Dose of Warhammer',
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: '/logo.svg',
+        url: '/images/ddow logo.jpg',
         width: 300,
         height: 60,
         alt: 'Daily Dose of Warhammer Logo',
@@ -53,10 +54,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${anton.variable} ${bitter.variable} ${cinzel.variable}`}>
       <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       </head>
       <body className="bg-warhammer-dark text-white font-bitter">
+        <Navigation />
         {children}
       </body>
     </html>

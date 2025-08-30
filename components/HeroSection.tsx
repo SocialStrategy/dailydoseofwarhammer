@@ -1,14 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Navigation from './Navigation'
 
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-warhammer-dark via-warhammer-gray to-dark-byzantium">
-      {/* Navigation */}
-      <Navigation />
-
       {/* Hero Content Layout */}
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center min-h-screen px-4 lg:px-8 pt-20">
         
