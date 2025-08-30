@@ -16,6 +16,8 @@ module.exports = {
         'warhammer-red': '#8B0000',
         'warhammer-dark': '#1a1a1a',
         'warhammer-gray': '#2d2d2d',
+        'text-light': '#E8E8E8',
+        'text-muted': '#B8B8B8',
       },
       fontFamily: {
         'anton': ['Anton', 'sans-serif'],

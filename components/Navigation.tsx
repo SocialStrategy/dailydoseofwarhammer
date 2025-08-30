@@ -58,7 +58,7 @@ export default function Navigation() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-lavender-gray hover:text-warhammer-gold transition-colors duration-300 font-bitter"
+              className="text-text-light hover:text-warhammer-gold transition-colors duration-300 font-bitter"
             >
               {item.name}
             </Link>
@@ -105,7 +105,7 @@ export default function Navigation() {
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="block text-lavender-gray hover:text-warhammer-gold transition-colors duration-300 font-bitter text-lg"
+                  className="block text-text-light hover:text-warhammer-gold transition-colors duration-300 font-bitter text-lg"
                 >
                   {item.name}
                 </Link>

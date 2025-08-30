@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
             <Shield className="w-10 h-10 text-warhammer-gold" />
           </div>
           <h1 className="font-anton text-3xl text-white mb-2">ADMIN ACCESS</h1>
-          <p className="text-lavender-gray">Secure authentication required</p>
+          <p className="text-text-light">Secure authentication required</p>
         </div>
 
         {/* Login Form */}
@@ -72,7 +72,7 @@ export default function AdminLoginPage() {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-lavender-gray focus:border-warhammer-gold focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-text-muted focus:border-warhammer-gold focus:outline-none transition-colors"
                   placeholder="Enter username"
                   required
                 />
@@ -89,14 +89,14 @@ export default function AdminLoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-lavender-gray focus:border-warhammer-gold focus:outline-none transition-colors pr-12"
+                  className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-text-muted focus:border-warhammer-gold focus:outline-none transition-colors pr-12"
                   placeholder="Enter password"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-lavender-gray hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-light hover:text-white transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -138,7 +138,7 @@ export default function AdminLoginPage() {
 
           {/* Security Notice */}
           <div className="mt-6 pt-6 border-t border-warhammer-gold/30">
-            <div className="flex items-center gap-2 text-lavender-gray text-sm">
+            <div className="flex items-center gap-2 text-text-light text-sm">
               <Shield className="w-4 h-4 text-warhammer-gold" />
               <span>Secure SSO authentication required</span>
             </div>

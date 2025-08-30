@@ -34,9 +34,9 @@ export default function CreatorsHero() {
           <h1 className="font-anton text-5xl lg:text-7xl text-white mb-6 warhammer-text-shadow">
             CREATORS WE LOVE
           </h1>
-          <p className="font-bitter text-xl lg:text-2xl text-lavender-gray max-w-4xl mx-auto mb-8">
-            Discover the most talented and passionate Warhammer 40k content creators in the community. 
-            From painting masters to tactical geniuses, these creators inspire us every day.
+          <p className="font-bitter text-xl lg:text-2xl text-text-light max-w-4xl mx-auto mb-8">
+            Discover amazing Warhammer 40,000 content creators, from Spikey Bits articles to Auspex Tactics videos. 
+            Find your next favorite Warhammer creator and dive deep into the hobby.
           </p>
           <div className="flex flex-wrap justify-center gap-8">
             {stats.map((stat, index) => (
@@ -68,9 +68,9 @@ export default function CreatorsHero() {
             <h2 className="font-anton text-3xl text-warhammer-gold mb-6">
               CREATOR SPOTLIGHT
             </h2>
-            <p className="text-lavender-gray text-lg mb-8">
-              Each month, we highlight an exceptional creator whose work embodies the spirit of the Warhammer community. 
-              Their dedication, creativity, and passion inspire hobbyists around the world.
+            <p className="text-text-light text-lg mb-8">
+              Our curated list of creators brings you the best Warhammer content from across the community. 
+              From painting tutorials to battle reports, strategy guides to lore deep-dives.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="#featured" className="warhammer-button">

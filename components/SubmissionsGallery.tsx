@@ -112,7 +112,7 @@ export default function SubmissionsGallery() {
               className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                 selectedCategory === category.value
                   ? 'bg-warhammer-gold text-warhammer-dark'
-                  : 'bg-warhammer-gray/50 text-lavender-gray hover:bg-warhammer-gray hover:text-white'
+                  : 'bg-warhammer-gray/50 text-text-light hover:bg-warhammer-gray hover:text-white'
               }`}
             >
               {category.label}
@@ -144,7 +144,7 @@ export default function SubmissionsGallery() {
             {/* Main Image */}
             <div className="relative mb-4 overflow-hidden rounded-lg">
               <div className="aspect-square bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center">
-                <span className="text-lavender-gray text-sm">Submission Image</span>
+                <span className="text-text-light text-sm">Submission Image</span>
               </div>
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
               
@@ -162,7 +162,7 @@ export default function SubmissionsGallery() {
                 <span className="bg-warhammer-gold text-warhammer-dark text-xs font-anton px-2 py-1 rounded">
                   {submission.category}
                 </span>
-                <div className="flex items-center space-x-1 text-lavender-gray text-sm">
+                <div className="flex items-center space-x-1 text-text-light text-sm">
                   <Calendar size={14} />
                   <span>{formatDate(submission.date)}</span>
                 </div>
@@ -172,11 +172,11 @@ export default function SubmissionsGallery() {
                 {submission.title}
               </h3>
               
-              <p className="text-lavender-gray line-clamp-3">
+              <p className="text-text-light line-clamp-3">
                 {submission.description}
               </p>
 
-              <div className="flex items-center justify-between text-sm text-lavender-gray">
+              <div className="flex items-center justify-between text-sm text-text-light">
                 <div className="flex items-center space-x-2">
                   <User size={14} />
                   <span className="font-medium">{submission.artist}</span>
@@ -186,7 +186,7 @@ export default function SubmissionsGallery() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-sm text-lavender-gray">
+              <div className="flex items-center justify-between text-sm text-text-light">
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-1">
                     <Eye size={14} />
@@ -207,9 +207,9 @@ export default function SubmissionsGallery() {
       {/* No Results */}
       {filteredSubmissions.length === 0 && (
         <div className="text-center py-16">
-          <Tag className="w-16 h-16 text-lavender-gray mx-auto mb-4" />
+          <Tag className="w-16 h-16 text-text-light mx-auto mb-4" />
           <h3 className="font-anton text-2xl text-white mb-2">No Submissions Found</h3>
-          <p className="text-lavender-gray">
+          <p className="text-text-light">
             No submissions match the selected category. Try selecting a different category or be the first to submit!
           </p>
         </div>
@@ -237,7 +237,7 @@ export default function SubmissionsGallery() {
                   <h2 className="font-anton text-3xl text-white">{selectedSubmission.title}</h2>
                   <button
                     onClick={() => setSelectedSubmission(null)}
-                    className="text-lavender-gray hover:text-white transition-colors"
+                    className="text-text-light hover:text-white transition-colors"
                   >
                     <X size={24} />
                   </button>
@@ -247,14 +247,14 @@ export default function SubmissionsGallery() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                   {selectedSubmission.images.map((image, index) => (
                     <div key={index} className="aspect-square bg-gradient-to-br from-warhammer-gray to-dark-byzantium rounded-lg flex items-center justify-center">
-                      <span className="text-lavender-gray text-sm">Image {index + 1}</span>
+                      <span className="text-text-light text-sm">Image {index + 1}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Details */}
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-4 text-sm text-lavender-gray">
+                  <div className="flex items-center space-x-4 text-sm text-text-light">
                     <span className="bg-warhammer-gold text-warhammer-dark font-anton px-2 py-1 rounded">
                       {selectedSubmission.category}
                     </span>
@@ -262,11 +262,11 @@ export default function SubmissionsGallery() {
                     <span>{formatDate(selectedSubmission.date)}</span>
                   </div>
 
-                  <p className="text-lavender-gray leading-relaxed">
+                  <p className="text-text-light leading-relaxed">
                     {selectedSubmission.description}
                   </p>
 
-                  <div className="flex items-center justify-between text-sm text-lavender-gray">
+                  <div className="flex items-center justify-between text-sm text-text-light">
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center space-x-1">
                         <Eye size={16} />

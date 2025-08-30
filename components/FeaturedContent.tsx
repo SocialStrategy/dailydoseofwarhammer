@@ -45,9 +45,9 @@ export default function FeaturedContent() {
           className="text-center mb-16"
         >
           <h2 className="section-title">FEATURED CONTENT</h2>
-          <p className="content-text text-lavender-gray max-w-3xl mx-auto">
-            Discover the best Warhammer 40,000 content curated by our community. 
-            From painting tutorials to tactical guides, find inspiration for your next project.
+          <p className="content-text text-text-light max-w-3xl mx-auto">
+            Discover curated content handpicked by our team of Warhammer enthusiasts. 
+            From painting tutorials to battle reports, we showcase the best of the hobby.
           </p>
         </motion.div>
 
@@ -63,7 +63,7 @@ export default function FeaturedContent() {
             >
               <div className="relative mb-4 overflow-hidden rounded-lg">
                 <div className="aspect-video bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center">
-                  <span className="text-lavender-gray text-sm">Featured Image</span>
+                  <span className="text-text-light text-sm">Featured Image</span>
                 </div>
                 <div className="absolute top-3 left-3">
                   <span className="bg-warhammer-gold text-warhammer-dark text-xs font-anton px-2 py-1 rounded">
@@ -77,11 +77,11 @@ export default function FeaturedContent() {
                 {item.title}
               </h3>
               
-              <p className="text-lavender-gray mb-4 line-clamp-3">
+              <p className="text-text-light mb-4 line-clamp-3">
                 {item.description}
               </p>
 
-              <div className="flex items-center justify-between text-sm text-lavender-gray">
+              <div className="flex items-center justify-between text-sm text-text-light">
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-1">
                     <Eye size={16} />

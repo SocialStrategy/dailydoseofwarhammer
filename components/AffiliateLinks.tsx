@@ -51,9 +51,9 @@ export default function AffiliateLinks() {
           className="text-center mb-16"
         >
           <h2 className="section-title">RECOMMENDED PARTNERS</h2>
-          <p className="content-text text-lavender-gray max-w-3xl mx-auto">
-            Support the channel and get amazing deals on Warhammer 40k supplies, gaming accessories, and hobby tools. 
-            These are products we personally use and recommend.
+          <p className="content-text text-text-light max-w-3xl mx-auto">
+            Support the Daily Dose of Warhammer community by using our affiliate links. 
+            These partnerships help us keep the content flowing and the community growing.
           </p>
         </motion.div>
 
@@ -77,7 +77,7 @@ export default function AffiliateLinks() {
               {/* Image Placeholder */}
               <div className="relative mb-4 overflow-hidden rounded-lg">
                 <div className="aspect-video bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center">
-                  <span className="text-lavender-gray text-sm">Partner Image</span>
+                  <span className="text-text-light text-sm">Partner Image</span>
                 </div>
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
               </div>
@@ -93,7 +93,7 @@ export default function AffiliateLinks() {
               </h3>
               
               {/* Description */}
-              <p className="text-lavender-gray mb-4 line-clamp-3">
+              <p className="text-text-light mb-4 line-clamp-3">
                 {partner.description}
               </p>
 
@@ -108,15 +108,15 @@ export default function AffiliateLinks() {
                     />
                   ))}
                 </div>
-                <span className="text-sm text-lavender-gray">
-                  {partner.rating} ({partner.reviews} reviews)
+                <span className="text-sm text-text-light">
+                  Rating: {partner.rating}/5
                 </span>
               </div>
 
               {/* Discount Code */}
               <div className="bg-warhammer-dark/50 border border-warhammer-gold/30 rounded-lg p-3 mb-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-lavender-gray">Use Code:</span>
+                  <span className="text-sm text-text-light">Use Code:</span>
                   <span className="font-anton text-warhammer-gold text-lg">{partner.code}</span>
                 </div>
               </div>
@@ -149,10 +149,9 @@ export default function AffiliateLinks() {
                 AFFILIATE DISCLOSURE
               </h3>
             </div>
-            <p className="text-lavender-gray mb-6">
-              We may earn a commission from purchases made through these affiliate links. 
-              This helps support the channel and allows us to continue creating content for the Warhammer community. 
-              All products are personally tested and recommended.
+            <p className="text-text-light mb-6">
+              By using these affiliate links, you're supporting the Daily Dose of Warhammer community 
+              and helping us continue to provide amazing content and features.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/affiliates" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">

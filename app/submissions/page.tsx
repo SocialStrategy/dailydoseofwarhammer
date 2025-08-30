@@ -45,7 +45,7 @@ export default function SubmissionsPage() {
             <h1 className="font-anton text-5xl lg:text-7xl text-white mb-6 warhammer-text-shadow">
               FAN SUBMISSIONS
             </h1>
-            <p className="font-bitter text-xl lg:text-2xl text-lavender-gray max-w-4xl mx-auto">
+            <p className="font-bitter text-xl lg:text-2xl text-text-light max-w-4xl mx-auto">
               Share your Warhammer 40k creations with the community. Submit your miniatures, paintings, and hobby projects.
             </p>
           </div>

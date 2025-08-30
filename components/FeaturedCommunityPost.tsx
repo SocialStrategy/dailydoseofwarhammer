@@ -61,8 +61,9 @@ export default function FeaturedCommunityPost() {
           <h2 className="section-title text-warhammer-gold mb-4">
             FEATURED COMMUNITY POST
           </h2>
-          <p className="content-text text-lavender-gray">
-            {error || 'No featured post available at the moment.'}
+          <p className="content-text text-text-light max-w-3xl mx-auto">
+            No featured community post available at the moment. 
+            Submit your work to be featured on the homepage!
           </p>
         </div>
       </section>
@@ -82,7 +83,7 @@ export default function FeaturedCommunityPost() {
           <h2 className="section-title text-warhammer-gold mb-4">
             FEATURED COMMUNITY POST
           </h2>
-          <p className="content-text text-lavender-gray max-w-3xl mx-auto">
+          <p className="content-text text-text-light max-w-3xl mx-auto">
             Showcasing exceptional work from our talented community members. 
             This week's featured post highlights incredible grimdark miniature painting skills.
           </p>

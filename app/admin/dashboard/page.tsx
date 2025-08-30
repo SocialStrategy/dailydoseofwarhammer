@@ -16,7 +16,7 @@ export default function AdminDashboardPage() {
             <h1 className="font-anton text-5xl lg:text-7xl text-white mb-6 warhammer-text-shadow">
               ADMIN DASHBOARD
             </h1>
-            <p className="font-bitter text-xl lg:text-2xl text-lavender-gray max-w-4xl mx-auto">
+            <p className="font-bitter text-xl lg:text-2xl text-text-light max-w-4xl mx-auto">
               Moderate fan submissions, select featured content, and manage the Daily Dose of Warhammer community.
             </p>
           </div>

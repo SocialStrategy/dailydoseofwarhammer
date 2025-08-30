@@ -155,7 +155,7 @@ export default function SubmissionForm() {
               required
               value={formData.title}
               onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-              className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-lavender-gray focus:border-warhammer-gold focus:outline-none transition-colors"
+              className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-text-muted focus:border-warhammer-gold focus:outline-none transition-colors"
               placeholder="Give your work a title"
             />
           </div>
@@ -184,7 +184,7 @@ export default function SubmissionForm() {
             rows={4}
             value={formData.description}
             onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-            className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-lavender-gray focus:border-warhammer-gold focus:outline-none transition-colors resize-none"
+            className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-text-muted focus:border-warhammer-gold focus:outline-none transition-colors resize-none"
             placeholder="Tell us about your work, techniques used, inspiration, etc."
           />
         </div>
@@ -196,7 +196,7 @@ export default function SubmissionForm() {
               type="text"
               value={formData.socialHandle}
               onChange={(e) => setFormData(prev => ({ ...prev, socialHandle: e.target.value }))}
-              className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-lavender-gray focus:border-warhammer-gold focus:outline-none transition-colors"
+              className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-text-muted focus:border-warhammer-gold focus:outline-none transition-colors"
               placeholder="@yourhandle"
             />
           </div>
@@ -207,7 +207,7 @@ export default function SubmissionForm() {
               type="email"
               value={formData.email}
               onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-              className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-lavender-gray focus:border-warhammer-gold focus:outline-none transition-colors"
+              className="w-full px-4 py-3 bg-warhammer-dark border border-warhammer-gold/30 rounded-lg text-white placeholder-text-muted focus:border-warhammer-gold focus:outline-none transition-colors"
               placeholder="your@email.com"
             />
           </div>
@@ -229,16 +229,16 @@ export default function SubmissionForm() {
               }`}
             >
               <input {...getInputProps()} />
-              <Upload className="w-12 h-12 text-lavender-gray mx-auto mb-4" />
+              <Upload className="w-12 h-12 text-text-light mx-auto mb-4" />
               {isDragActive ? (
-                <p className="text-warhammer-gold font-medium">Drop your images here...</p>
+                <p className="text-text-light font-medium">Drop your images here...</p>
               ) : (
                 <div>
-                  <p className="text-lavender-gray mb-2">
-                    Drag & drop images here, or <span className="text-warhammer-gold">click to select</span>
+                  <p className="text-text-light mb-2">
+                    Drop your images here, or click to browse
                   </p>
-                  <p className="text-sm text-lavender-gray">
-                    Supports: JPG, PNG, GIF, WebP (Max 10MB each)
+                  <p className="text-sm text-text-light">
+                    Supports JPG, PNG, GIF up to 5MB each
                   </p>
                 </div>
               )}
@@ -264,7 +264,7 @@ export default function SubmissionForm() {
                   >
                     <X size={14} />
                   </button>
-                  <p className="text-xs text-lavender-gray mt-1 truncate">{file.name}</p>
+                  <p className="text-xs text-text-light mt-1 truncate">{file.name}</p>
                 </div>
               ))}
             </div>
@@ -290,6 +290,9 @@ export default function SubmissionForm() {
               Please upload at least one image to submit your work
             </p>
           )}
+          <p className="text-text-light text-sm mt-2">
+            By submitting, you agree to our community guidelines and give permission to feature your work.
+          </p>
         </div>
       </form>
     </motion.div>

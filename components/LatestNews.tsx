@@ -191,11 +191,12 @@ export default function LatestNews() {
               <RefreshCw size={20} className={refreshing ? 'animate-spin' : ''} />
             </button>
           </div>
-          <p className="content-text text-lavender-gray max-w-3xl mx-auto">
-            Stay updated with the latest Warhammer Community news and announcements
+          <p className="content-text text-text-light max-w-3xl mx-auto">
+            Stay updated with the latest news, updates, and announcements from the Warhammer universe. 
+            From new releases to community events, we've got you covered.
           </p>
           {newsData && (
-            <p className="text-sm text-lavender-gray mt-2">
+            <p className="text-sm text-text-light mt-2">
               Last updated: {formatDate(newsData.lastUpdated)}
             </p>
           )}
@@ -238,12 +239,12 @@ export default function LatestNews() {
                     {article.title}
                   </h3>
                   
-                  <p className="text-lavender-gray mb-4 line-clamp-3">
+                  <p className="text-text-light mb-4 line-clamp-3">
                     {article.excerpt}
                   </p>
                   
                   <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-4 text-sm text-lavender-gray">
+                    <div className="flex items-center gap-4 text-sm text-text-light">
                       <span className="flex items-center gap-1">
                         <Eye size={14} />
                         {article.views.toLocaleString()}
@@ -283,7 +284,7 @@ export default function LatestNews() {
             className="text-center"
           >
             <div className="warhammer-card max-w-2xl mx-auto">
-              <p className="text-lavender-gray mb-4">No news articles available at the moment.</p>
+              <p className="text-text-light mb-4">No news articles available at the moment.</p>
               <button
                 onClick={refreshNews}
                 className="warhammer-button"

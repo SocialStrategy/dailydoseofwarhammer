@@ -194,7 +194,7 @@ export default function ProtectedAdminDashboard() {
     return (
       <div className="warhammer-card text-center py-16">
         <div className="animate-spin w-12 h-12 border-4 border-warhammer-gold border-t-transparent rounded-full mx-auto mb-4"></div>
-        <p className="text-lavender-gray">Verifying authentication...</p>
+        <p className="text-text-light">Verifying authentication...</p>
       </div>
     )
   }
@@ -203,7 +203,7 @@ export default function ProtectedAdminDashboard() {
     return (
       <div className="warhammer-card text-center py-16">
         <div className="animate-spin w-12 h-12 border-4 border-warhammer-gold border-t-transparent rounded-full mx-auto mb-4"></div>
-        <p className="text-lavender-gray">Loading admin dashboard...</p>
+        <p className="text-text-light">Loading admin dashboard...</p>
       </div>
     )
   }
@@ -219,7 +219,7 @@ export default function ProtectedAdminDashboard() {
             </div>
             <div>
               <h3 className="font-anton text-xl text-white">Welcome, {adminUser}</h3>
-              <p className="text-lavender-gray">Administrator Dashboard</p>
+              <p className="text-text-light">Administrator Dashboard</p>
             </div>
           </div>
           <button
@@ -244,7 +244,7 @@ export default function ProtectedAdminDashboard() {
             <AlertTriangle className="w-8 h-8 text-warhammer-gold" />
           </div>
           <h3 className="font-anton text-2xl text-white mb-2">{pendingSubmissions.length}</h3>
-          <p className="text-lavender-gray">Pending Review</p>
+          <p className="text-text-light">Pending Review</p>
         </motion.div>
 
         <motion.div
@@ -257,7 +257,7 @@ export default function ProtectedAdminDashboard() {
             <CheckCircle className="w-8 h-8 text-green-500" />
           </div>
           <h3 className="font-anton text-2xl text-white mb-2">{approvedSubmissions.length}</h3>
-          <p className="text-lavender-gray">Approved</p>
+          <p className="text-text-light">Approved</p>
         </motion.div>
 
         <motion.div
@@ -272,7 +272,7 @@ export default function ProtectedAdminDashboard() {
           <h3 className="font-anton text-2xl text-white mb-2">
             {approvedSubmissions.filter(s => s.isFeatured).length}
           </h3>
-          <p className="text-lavender-gray">Featured</p>
+          <p className="text-text-light">Featured</p>
         </motion.div>
 
         <motion.div
@@ -282,12 +282,12 @@ export default function ProtectedAdminDashboard() {
           className="warhammer-card text-center p-6"
         >
           <div className="w-16 h-16 bg-lavender-gray/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Users className="w-8 h-8 text-lavender-gray" />
+            <Users className="w-8 h-8 text-text-light" />
           </div>
           <h3 className="font-anton text-2xl text-white mb-2">
             {new Set([...pendingSubmissions, ...approvedSubmissions].map(s => s.artist)).size}
           </h3>
-          <p className="text-lavender-gray">Unique Artists</p>
+          <p className="text-text-light">Unique Artists</p>
         </motion.div>
       </div>
 
@@ -299,7 +299,7 @@ export default function ProtectedAdminDashboard() {
             className={`px-6 py-4 font-anton text-lg transition-colors ${
               activeTab === 'pending'
                 ? 'text-warhammer-gold border-b-2 border-warhammer-gold'
-                : 'text-lavender-gray hover:text-white'
+                : 'text-text-light hover:text-white'
             }`}
           >
             Pending Review ({pendingSubmissions.length})
@@ -309,7 +309,7 @@ export default function ProtectedAdminDashboard() {
             className={`px-6 py-4 font-anton text-lg transition-colors ${
               activeTab === 'approved'
                 ? 'text-warhammer-gold border-b-2 border-warhammer-gold'
-                : 'text-lavender-gray hover:text-white'
+                : 'text-text-light hover:text-white'
             }`}
           >
             Approved ({approvedSubmissions.length})
@@ -319,7 +319,7 @@ export default function ProtectedAdminDashboard() {
             className={`px-6 py-4 font-anton text-lg transition-colors ${
               activeTab === 'featured'
                 ? 'text-warhammer-gold border-b-2 border-warhammer-gold'
-                : 'text-lavender-gray hover:text-white'
+                : 'text-text-light hover:text-white'
             }`}
           >
             Featured Content
@@ -332,7 +332,7 @@ export default function ProtectedAdminDashboard() {
             <div className="space-y-6">
               <h3 className="font-anton text-2xl text-white mb-6">Submissions Awaiting Review</h3>
               {pendingSubmissions.length === 0 ? (
-                <p className="text-lavender-gray text-center py-8">No pending submissions to review.</p>
+                <p className="text-text-light text-center py-8">No pending submissions to review.</p>
               ) : (
                 pendingSubmissions.map((submission) => (
                   <SubmissionCard
@@ -351,7 +351,7 @@ export default function ProtectedAdminDashboard() {
             <div className="space-y-6">
               <h3 className="font-anton text-2xl text-white mb-6">Approved Submissions</h3>
               {approvedSubmissions.length === 0 ? (
-                <p className="text-lavender-gray text-center py-8">No approved submissions yet.</p>
+                <p className="text-text-light text-center py-8">No approved submissions yet.</p>
               ) : (
                 approvedSubmissions.map((submission) => (
                   <ApprovedSubmissionCard
@@ -370,7 +370,7 @@ export default function ProtectedAdminDashboard() {
             <div className="space-y-6">
               <h3 className="font-anton text-2xl text-white mb-6">Featured Content</h3>
               {approvedSubmissions.filter(s => s.isFeatured).length === 0 ? (
-                <p className="text-lavender-gray text-center py-8">No featured content selected.</p>
+                <p className="text-text-light text-center py-8">No featured content selected.</p>
               ) : (
                 approvedSubmissions
                   .filter(s => s.isFeatured)
@@ -434,7 +434,7 @@ function SubmissionCard({
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
             <div>
               <h4 className="font-anton text-xl text-white mb-2">{submission.title}</h4>
-              <p className="text-lavender-gray mb-2">by {submission.artist}</p>
+              <p className="text-text-light mb-2">by {submission.artist}</p>
               <p className="text-white mb-3">{submission.description}</p>
               <div className="flex flex-wrap gap-2 mb-3">
                 <span className="bg-warhammer-gold text-warhammer-dark text-xs px-2 py-1 rounded">
@@ -445,7 +445,7 @@ function SubmissionCard({
                 </span>
               </div>
               {submission.socialHandle && (
-                <p className="text-lavender-gray text-sm">@{submission.socialHandle}</p>
+                <p className="text-text-light text-sm">@{submission.socialHandle}</p>
               )}
             </div>
 
@@ -520,7 +520,7 @@ function ApprovedSubmissionCard({
                   <Star className="w-5 h-5 text-warhammer-gold fill-current" />
                 )}
               </div>
-              <p className="text-lavender-gray mb-2">by {submission.artist}</p>
+              <p className="text-text-light mb-2">by {submission.artist}</p>
               <p className="text-white mb-3">{submission.description}</p>
               <div className="flex flex-wrap gap-2 mb-3">
                 <span className="bg-green-600 text-white text-xs px-2 py-1 rounded">
@@ -533,7 +533,7 @@ function ApprovedSubmissionCard({
                   {submission.images.length} images
                 </span>
               </div>
-              <p className="text-lavender-gray text-sm">Approved: {submission.approvedDate}</p>
+              <p className="text-text-light text-sm">Approved: {submission.approvedDate}</p>
             </div>
 
             {/* Actions */}
@@ -616,7 +616,7 @@ function FeaturedSubmissionCard({
                 <h4 className="font-anton text-2xl text-white">{submission.title}</h4>
                 <Star className="w-6 h-6 text-warhammer-gold fill-current" />
               </div>
-              <p className="text-lavender-gray text-lg mb-2">by {submission.artist}</p>
+              <p className="text-text-light text-lg mb-2">by {submission.artist}</p>
               <p className="text-white mb-3">{submission.description}</p>
               <div className="flex flex-wrap gap-2 mb-3">
                 <span className="bg-warhammer-gold text-warhammer-dark text-sm px-3 py-1 rounded font-medium">
@@ -629,7 +629,7 @@ function FeaturedSubmissionCard({
                   {submission.images.length} images
                 </span>
               </div>
-              <p className="text-lavender-gray text-sm">Featured since: {submission.approvedDate}</p>
+              <p className="text-text-light text-sm">Featured since: {submission.approvedDate}</p>
             </div>
 
             {/* Actions */}
@@ -676,7 +676,7 @@ function SubmissionModal({
           <h3 className="font-anton text-2xl text-white">{submission.title}</h3>
           <button
             onClick={onClose}
-            className="text-lavender-gray hover:text-white transition-colors"
+            className="text-text-light hover:text-white transition-colors"
           >
             <XCircle className="w-6 h-6" />
           </button>
@@ -703,21 +703,21 @@ function SubmissionModal({
           <div className="space-y-4">
             <div>
               <h4 className="font-anton text-lg text-white mb-2">Artist Information</h4>
-              <p className="text-lavender-gray">Name: {submission.artist}</p>
+              <p className="text-text-light">Name: {submission.artist}</p>
               {submission.socialHandle && (
-                <p className="text-lavender-gray">Social: @{submission.socialHandle}</p>
+                <p className="text-text-light">Social: @{submission.socialHandle}</p>
               )}
               {submission.email && (
-                <p className="text-lavender-gray">Email: {submission.email}</p>
+                <p className="text-text-light">Email: {submission.email}</p>
               )}
             </div>
 
             <div>
               <h4 className="font-anton text-lg text-white mb-2">Submission Details</h4>
-              <p className="text-lavender-gray">Category: {submission.category}</p>
-              <p className="text-lavender-gray">Submitted: {submission.date}</p>
+              <p className="text-text-light">Category: {submission.category}</p>
+              <p className="text-text-light">Submitted: {submission.date}</p>
               {submission.status === 'approved' && 'approvedDate' in submission && (
-                <p className="text-lavender-gray">Approved: {submission.approvedDate}</p>
+                <p className="text-text-light">Approved: {submission.approvedDate}</p>
               )}
             </div>
 

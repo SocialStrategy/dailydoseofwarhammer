@@ -50,9 +50,9 @@ export default function SocialLinks() {
           className="text-center mb-16"
         >
           <h2 className="section-title">JOIN OUR COMMUNITY</h2>
-          <p className="content-text text-lavender-gray max-w-3xl mx-auto">
-            Connect with thousands of Warhammer enthusiasts across all major social platforms. 
-            Share your work, get inspired, and be part of the largest Warhammer community online.
+          <p className="content-text text-text-light max-w-3xl mx-auto">
+            Connect with the Daily Dose of Warhammer community across all major social media platforms. 
+            Stay updated with the latest content, engage with fellow hobbyists, and never miss a post.
           </p>
         </motion.div>
 
@@ -82,12 +82,12 @@ export default function SocialLinks() {
                     <ExternalLink size={16} className="text-lavender-gray group-hover:text-warhammer-gold transition-colors duration-300" />
                   </div>
                   
-                  <p className="text-lavender-gray mb-3 line-clamp-2">
+                  <p className="text-text-light mb-3 line-clamp-2">
                     {platform.description}
                   </p>
                   
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-lavender-gray">
+                    <span className="text-sm text-text-light">
                       <span className="font-medium">{platform.followers}</span> followers
                     </span>
                     <span className="text-warhammer-gold text-sm font-medium group-hover:text-yellow-400 transition-colors duration-300">
@@ -111,9 +111,9 @@ export default function SocialLinks() {
             <h3 className="font-anton text-2xl text-warhammer-gold mb-4">
               STAY CONNECTED
             </h3>
-            <p className="text-lavender-gray mb-6">
-              Get notified about new content, community events, and exclusive Warhammer updates. 
-              Never miss a moment of the hobby!
+            <p className="text-text-light mb-6">
+              Join our growing community and be part of the conversation. 
+              Share your thoughts, ask questions, and connect with fellow Warhammer enthusiasts.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/newsletter" className="warhammer-button">

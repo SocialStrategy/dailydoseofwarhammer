@@ -28,7 +28,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="font-bitter text-xl lg:text-2xl text-lavender-gray max-w-2xl mx-auto lg:mx-0 mb-8 lg:mb-12"
+            className="font-bitter text-xl lg:text-2xl text-text-light max-w-2xl mx-auto lg:mx-0 mb-8 lg:mb-12"
           >
             Your daily source for Warhammer 40,000 content, news, and community submissions. 
             In the grim darkness of the far future, there is only war... and our passion for the hobby.
@@ -78,14 +78,14 @@ export default function HeroSection() {
         transition={{ duration: 1, delay: 1 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <div className="flex flex-col items-center text-lavender-gray">
+        <div className="flex flex-col items-center text-text-light">
           <span className="text-sm mb-2">Scroll Down</span>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="w-6 h-6 border-2 border-lavender-gray rounded-full flex items-center justify-center"
+            className="w-6 h-6 border-2 border-text-light rounded-full flex items-center justify-center"
           >
-            <div className="w-1 h-2 bg-lavender-gray rounded-full" />
+            <div className="w-1 h-2 bg-text-light rounded-full" />
           </motion.div>
         </div>
       </motion.div>
