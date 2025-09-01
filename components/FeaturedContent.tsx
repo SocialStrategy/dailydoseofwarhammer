@@ -105,7 +105,7 @@ export default function FeaturedContent() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <a href="/featured" className="warhammer-button">
+          <a href="/submissions" className="warhammer-button">
             VIEW ALL FEATURED CONTENT
           </a>
         </motion.div>

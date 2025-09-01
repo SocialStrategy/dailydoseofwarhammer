@@ -34,7 +34,7 @@ export default function CreatorsList() {
         instagram: 'https://instagram.com/spikeybits',
         website: 'https://spikeybits.com'
       },
-      logo: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=200&h=200&fit=crop&crop=center'
+      logo: '/images/Creator-logos/Spikey Bits.jpg'
     },
     {
       id: '2',
@@ -48,7 +48,7 @@ export default function CreatorsList() {
         youtube: 'https://youtube.com/@auspextactics',
         website: 'https://youtube.com/@auspextactics'
       },
-      logo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop&crop=center'
+      logo: '/images/Creator-logos/Auspex Tactics.jpg'
     },
     {
       id: '3',
@@ -63,7 +63,7 @@ export default function CreatorsList() {
         instagram: 'https://instagram.com/midwinterminis',
         website: 'https://midwinterminis.com'
       },
-      logo: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop&crop=center'
+      logo: '/images/Creator-logos/Miwinter Minis.jpg'
     },
     {
       id: '4',
@@ -77,7 +77,7 @@ export default function CreatorsList() {
         youtube: 'https://youtube.com/@tabletoptactics',
         website: 'https://tabletoptactics.com'
       },
-      logo: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=200&h=200&fit=crop&crop=center'
+      logo: '/images/Creator-logos/Tabletop Tactics.jpg'
     },
     {
       id: '5',
@@ -91,7 +91,7 @@ export default function CreatorsList() {
         youtube: 'https://youtube.com/@duncanrhodes',
         website: 'https://duncanrhodes.com'
       },
-      logo: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop&crop=center'
+      logo: '/images/Creator-logos/Duncan Rhodes.jpg'
     }
   ]
 
@@ -236,7 +236,7 @@ export default function CreatorsList() {
               <a href="/submissions" className="warhammer-button">
                 SUBMIT YOUR WORK
               </a>
-              <a href="/contact" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
+              <a href="/submissions" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
                 NOMINATE CREATOR
               </a>
             </div>

@@ -9,34 +9,34 @@ export default function AffiliateLinks() {
       name: 'Gamemat EU',
       description: 'Premium gaming mats and terrain for your Warhammer 40k battles. High-quality materials and stunning designs.',
       category: 'Gaming Accessories',
-      discount: '15% OFF',
+      discount: '11% OFF',
       code: 'DDOW11',
       url: 'https://gamemat.eu',
       rating: 4.8,
       reviews: 1247,
-      image: '/api/placeholder/300/200'
+      image: '/images/Affiliate-logos/gamemat.eu.svg'
     },
     {
       name: 'EA & J Labs LLC',
       description: 'Professional gaming equipment and accessories. From dice to storage solutions, everything you need for the hobby.',
       category: 'Gaming Equipment',
-      discount: '20% OFF',
+      discount: '10% OFF',
       code: 'DAILYDOSE',
       url: 'https://eaandjlabsllc.etsy.com',
       rating: 4.6,
       reviews: 892,
-      image: '/api/placeholder/300/200'
+      image: '/images/Affiliate-logos/ea and j labs.jpg'
     },
     {
       name: 'Spikey Bits',
       description: 'Warhammer 40k news, tactics, and hobby content. Stay updated with the latest releases and community insights.',
       category: 'Warhammer Content',
-      discount: '10% OFF',
-      code: 'DAILYDOSE',
+      discount: null,
+      code: null,
       url: 'https://spikeybits.com',
       rating: 4.7,
       reviews: 1850,
-      image: '/api/placeholder/300/200'
+      image: '/images/Affiliate-logos/Spikey Bits.jpg'
     }
   ]
 
@@ -68,16 +68,22 @@ export default function AffiliateLinks() {
               className="warhammer-card group hover:scale-105 transition-all duration-300"
             >
               {/* Discount Badge */}
-              <div className="absolute top-4 right-4 z-10">
-                <div className="bg-warhammer-gold text-warhammer-dark font-anton text-sm px-3 py-1 rounded-full">
-                  {partner.discount}
+              {partner.discount && (
+                <div className="absolute top-4 right-4 z-10">
+                  <div className="bg-warhammer-gold text-warhammer-dark font-anton text-sm px-3 py-1 rounded-full">
+                    {partner.discount}
+                  </div>
                 </div>
-              </div>
+              )}
 
-              {/* Image Placeholder */}
+              {/* Partner Logo */}
               <div className="relative mb-4 overflow-hidden rounded-lg">
                 <div className="aspect-video bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center">
-                  <span className="text-text-light text-sm">Partner Image</span>
+                  <img
+                    src={partner.image}
+                    alt={`${partner.name} logo`}
+                    className="max-h-16 max-w-full object-contain"
+                  />
                 </div>
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
               </div>
@@ -114,12 +120,14 @@ export default function AffiliateLinks() {
               </div>
 
               {/* Discount Code */}
-              <div className="bg-warhammer-dark/50 border border-warhammer-gold/30 rounded-lg p-3 mb-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-text-light">Use Code:</span>
-                  <span className="font-anton text-warhammer-gold text-lg">{partner.code}</span>
+              {partner.code && (
+                <div className="bg-warhammer-dark/50 border border-warhammer-gold/30 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-text-light">Use Code:</span>
+                    <span className="font-anton text-warhammer-gold text-lg">{partner.code}</span>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* CTA Button */}
               <a
@@ -154,11 +162,11 @@ export default function AffiliateLinks() {
               and helping us continue to provide amazing content and features.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/affiliates" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
-                VIEW ALL PARTNERS
+              <a href="/submissions" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
+                VIEW FAN SUBMISSIONS
               </a>
-              <a href="/reviews" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
-                READ OUR REVIEWS
+              <a href="/creators" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
+                EXPLORE CREATORS
               </a>
             </div>
           </div>

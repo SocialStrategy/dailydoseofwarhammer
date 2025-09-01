@@ -11,6 +11,7 @@ export default function Navigation() {
 
   const menuItems = [
     { name: 'Home', href: '/' },
+    { name: 'News', href: '/news' },
     { name: 'Creators We Love', href: '/creators' },
     { name: 'Fan Submissions', href: '/submissions' },
   ]

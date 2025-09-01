@@ -116,10 +116,10 @@ export default function SocialLinks() {
               Share your thoughts, ask questions, and connect with fellow Warhammer enthusiasts.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/newsletter" className="warhammer-button">
-                SUBSCRIBE TO NEWSLETTER
+              <a href="/news" className="warhammer-button">
+                READ LATEST NEWS
               </a>
-              <a href="/discord" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
+              <a href="https://discord.gg/dailydoseofwarhammer" target="_blank" rel="noopener noreferrer" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
                 JOIN DISCORD SERVER
               </a>
             </div>
