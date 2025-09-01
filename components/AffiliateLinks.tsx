@@ -198,14 +198,14 @@ export default function AffiliateLinks() {
               By using these affiliate links, you're supporting the Daily Dose of Warhammer community 
               and helping us continue to provide amazing content and features.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/submissions" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
-                VIEW FAN SUBMISSIONS
-              </a>
-              <a href="/creators" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
-                EXPLORE CREATORS
-              </a>
-            </div>
+                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
+               <a href="/submissions" className="warhammer-button">
+                 VIEW FAN SUBMISSIONS
+               </a>
+               <a href="/creators" className="warhammer-button">
+                 EXPLORE CREATORS
+               </a>
+             </div>
           </div>
         </motion.div>
       </div>

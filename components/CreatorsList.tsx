@@ -236,7 +236,7 @@ export default function CreatorsList() {
               <a href="/submissions" className="warhammer-button">
                 SUBMIT YOUR WORK
               </a>
-              <a href="/submissions" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
+              <a href="/submissions" className="warhammer-button">
                 NOMINATE CREATOR
               </a>
             </div>

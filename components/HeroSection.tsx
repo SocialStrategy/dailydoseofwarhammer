@@ -43,7 +43,7 @@ export default function HeroSection() {
             <a href="/submissions" className="warhammer-button">
               SUBMIT YOUR WORK
             </a>
-            <a href="/creators" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
+            <a href="/creators" className="warhammer-button">
               EXPLORE CREATORS
             </a>
           </motion.div>
@@ -60,7 +60,7 @@ export default function HeroSection() {
             <div className="bg-white rounded-lg shadow-2xl overflow-hidden">
               <iframe
                 src="https://www.instagram.com/reel/DKvAVkGsMfJ/embed"
-                className="w-full aspect-square"
+                className="w-full h-96"
                 frameBorder="0"
                 scrolling="no"
                 allowTransparency={true}

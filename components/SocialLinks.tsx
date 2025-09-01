@@ -119,7 +119,7 @@ export default function SocialLinks() {
               <a href="/news" className="warhammer-button">
                 READ LATEST NEWS
               </a>
-              <a href="https://discord.gg/dailydoseofwarhammer" target="_blank" rel="noopener noreferrer" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
+              <a href="https://discord.gg/dailydoseofwarhammer" target="_blank" rel="noopener noreferrer" className="warhammer-button">
                 JOIN DISCORD SERVER
               </a>
             </div>
