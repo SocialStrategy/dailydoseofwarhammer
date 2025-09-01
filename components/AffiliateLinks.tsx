@@ -78,11 +78,11 @@ export default function AffiliateLinks() {
 
               {/* Partner Logo */}
               <div className="relative mb-4 overflow-hidden rounded-lg">
-                <div className="aspect-video bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center">
+                <div className="aspect-video bg-gradient-to-br from-warhammer-gray to-dark-byzantium flex items-center justify-center p-4">
                   <img
                     src={partner.image}
                     alt={`${partner.name} logo`}
-                    className="max-h-16 max-w-full object-contain"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
@@ -106,13 +106,50 @@ export default function AffiliateLinks() {
               {/* Rating */}
               <div className="flex items-center space-x-2 mb-4">
                 <div className="flex items-center space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={16}
-                      className={i < Math.floor(partner.rating) ? 'text-warhammer-gold fill-current' : 'text-gray-400'}
-                    />
-                  ))}
+                  {[...Array(5)].map((_, i) => {
+                    const starValue = i + 1;
+                    const rating = partner.rating;
+                    
+                    if (starValue <= Math.floor(rating)) {
+                      // Full star
+                      return (
+                        <Star
+                          key={i}
+                          size={16}
+                          className="text-warhammer-gold fill-current"
+                        />
+                      );
+                    } else if (starValue === Math.ceil(rating) && rating % 1 !== 0) {
+                      // Partial star - calculate fill percentage
+                      const fillPercentage = (rating % 1) * 100;
+                      return (
+                        <div key={i} className="relative">
+                          <Star
+                            size={16}
+                            className="text-gray-400"
+                          />
+                          <div 
+                            className="absolute inset-0 overflow-hidden"
+                            style={{ width: `${fillPercentage}%` }}
+                          >
+                            <Star
+                              size={16}
+                              className="text-warhammer-gold fill-current"
+                            />
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      // Empty star
+                      return (
+                        <Star
+                          key={i}
+                          size={16}
+                          className="text-gray-400"
+                        />
+                      );
+                    }
+                  })}
                 </div>
                 <span className="text-sm text-text-light">
                   Rating: {partner.rating}/5
