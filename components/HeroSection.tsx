@@ -6,7 +6,7 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-warhammer-dark via-warhammer-gray to-dark-byzantium">
       {/* Hero Content Layout */}
-      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center min-h-screen px-4 lg:px-8 pt-20">
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center min-h-screen px-4 lg:px-8 pt-20 pb-24">
         
         {/* Left Side - Text Content */}
         <motion.div
@@ -60,7 +60,7 @@ export default function HeroSection() {
             <div className="bg-white rounded-lg shadow-2xl overflow-hidden">
               <iframe
                 src="https://www.instagram.com/reel/DKvAVkGsMfJ/embed"
-                className="w-full h-96"
+                className="w-full h-[500px]"
                 frameBorder="0"
                 scrolling="no"
                 allowTransparency={true}
@@ -76,7 +76,7 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
       >
         <div className="flex flex-col items-center text-text-light">
           <span className="text-sm mb-2">Scroll Down</span>
