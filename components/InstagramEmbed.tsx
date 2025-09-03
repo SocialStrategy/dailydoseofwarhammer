@@ -38,16 +38,17 @@ export default function InstagramEmbed({ url, className = '' }: InstagramEmbedPr
         setLoading(true)
         setError('')
         
-        // Use Instagram oEmbed API without token
-        const oembedUrl = `https://graph.instagram.com/instagram_oembed?url=${encodeURIComponent(url)}`
-        
         const response = await fetch(`/api/instagram-oembed?url=${encodeURIComponent(url)}`)
         
         if (!response.ok) {
           throw new Error('Failed to fetch Instagram embed')
         }
         
-        const data: InstagramOEmbedResponse = await response.json()
+        const data = await response.json()
+        
+        if (data.error || data.fallback) {
+          throw new Error(data.message || 'Instagram oEmbed failed')
+        }
         
         if (data.html) {
           setEmbedData(data)
@@ -57,7 +58,9 @@ export default function InstagramEmbed({ url, className = '' }: InstagramEmbedPr
         }
       } catch (err) {
         console.error('Error fetching Instagram embed:', err)
-        setError('Failed to load Instagram content')
+        // Instead of showing error, fall back to iframe
+        setError('')
+        setEmbedHtml(generateIframeFallback(url))
       } finally {
         setLoading(false)
       }
@@ -67,6 +70,23 @@ export default function InstagramEmbed({ url, className = '' }: InstagramEmbedPr
       fetchInstagramEmbed()
     }
   }, [url])
+
+  // Fallback iframe generator
+  const generateIframeFallback = (instagramUrl: string): string => {
+    const embedUrl = instagramUrl.replace('/reel/', '/p/').replace(/\/$/, '') + '/embed'
+    return `
+      <div style="position: relative; width: 100%; padding-bottom: 125%; background: #fff; border-radius: 8px; overflow: hidden;">
+        <iframe 
+          src="${embedUrl}"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+          frameborder="0"
+          scrolling="no"
+          allowtransparency="true"
+          loading="lazy"
+        ></iframe>
+      </div>
+    `
+  }
 
   // Load Instagram embed script if not already loaded
   useEffect(() => {
@@ -97,16 +117,7 @@ export default function InstagramEmbed({ url, className = '' }: InstagramEmbedPr
     )
   }
 
-  if (error) {
-    return (
-      <div className={`flex items-center justify-center bg-gradient-to-br from-warhammer-gray to-dark-byzantium rounded-lg ${className}`}>
-        <div className="text-center p-8">
-          <p className="text-warhammer-red mb-2">⚠️ {error}</p>
-          <p className="text-text-light text-sm">Please try refreshing the page</p>
-        </div>
-      </div>
-    )
-  }
+  // Removed error display since we now fall back to iframe
 
   return (
     <motion.div

@@ -12,21 +12,33 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    // Ensure URL ends with / for Instagram oEmbed API
+    const cleanUrl = url.endsWith('/') ? url : `${url}/`
+    
     // Instagram oEmbed API endpoint (no token required for public content)
-    const oembedUrl = `https://graph.instagram.com/instagram_oembed?url=${encodeURIComponent(url)}`
+    const oembedUrl = `https://graph.instagram.com/instagram_oembed?url=${encodeURIComponent(cleanUrl)}&omitscript=true`
+    
+    console.log('Fetching Instagram oEmbed for:', cleanUrl)
     
     const response = await fetch(oembedUrl, {
       method: 'GET',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json',
+        'Cache-Control': 'no-cache',
       },
     })
 
+    console.log('Instagram API response status:', response.status)
+
     if (!response.ok) {
-      throw new Error(`Instagram API responded with ${response.status}`)
+      const errorText = await response.text()
+      console.error('Instagram API error response:', errorText)
+      throw new Error(`Instagram API responded with ${response.status}: ${errorText}`)
     }
 
     const data = await response.json()
+    console.log('Instagram oEmbed data received:', { title: data.title, hasHtml: !!data.html })
     
     if (!data.html) {
       throw new Error('No embed HTML received from Instagram')
@@ -38,10 +50,12 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Instagram oEmbed API error:', error)
     
+    // Return a fallback response that will trigger the component's error state
     return NextResponse.json(
       { 
         error: 'Failed to fetch Instagram embed',
-        message: error instanceof Error ? error.message : 'Unknown error'
+        message: error instanceof Error ? error.message : 'Unknown error',
+        fallback: true
       },
       { status: 500 }
     )
