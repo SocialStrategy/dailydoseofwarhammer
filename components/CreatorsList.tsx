@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
 import { ExternalLink, Youtube, Globe, Instagram, Users, Star } from 'lucide-react'
 
@@ -20,13 +21,51 @@ interface Creator {
 }
 
 export default function CreatorsList() {
+  const handleShare = async (creator: Creator, event: React.MouseEvent<HTMLButtonElement>) => {
+    const shareData = {
+      title: `Check out ${creator.name} on Daily Dose of Warhammer`,
+      text: `${creator.description}`,
+      url: `${window.location.origin}/creators#${creator.id}`
+    }
+
+    try {
+      // Try to use the native Web Share API first
+      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+        await navigator.share(shareData)
+        return
+      }
+    } catch (error) {
+      console.log('Web Share API not supported or failed, falling back to clipboard')
+    }
+
+    // Fallback: Copy to clipboard
+    try {
+      const shareText = `Check out ${creator.name} - ${creator.description}\n\nVisit: ${creator.website}\nYouTube: ${creator.socialLinks.youtube || 'N/A'}\n\nDiscover more creators at: ${window.location.origin}/creators`
+      
+      await navigator.clipboard.writeText(shareText)
+      
+      // Show a temporary notification
+      const button = event.currentTarget
+      const originalText = button.textContent
+      if (button) {
+        button.textContent = 'Copied!'
+        setTimeout(() => {
+          button.textContent = originalText
+        }, 2000)
+      }
+    } catch (clipboardError) {
+      // Final fallback: Alert with the information
+      alert(`Share ${creator.name}:\n\n${creator.description}\n\nWebsite: ${creator.website}\nYouTube: ${creator.socialLinks.youtube || 'N/A'}`)
+    }
+  }
+
   const creators: Creator[] = [
     {
       id: '1',
       name: 'Spikey Bits',
       description: 'Founded in 2009 by hobbyist Rob Baer. For over 15 years, we have produced entertaining and informative articles and videos about tabletop gaming and miniatures.',
       category: 'News & Community',
-      followers: '500K+',
+      followers: '250K+',
       featured: true,
       website: 'https://spikeybits.com',
       socialLinks: {
@@ -41,7 +80,7 @@ export default function CreatorsList() {
       name: 'Auspex Tactics',
       description: 'Auspex Tactics makes focused Warhammer 40K strategy videos usually looking at a single unit, idea or concept. The game of 40K is complex, diverse and fascinating, and I\'m looking forward to sharing my game knowledge in as many youtube videos as I can create!',
       category: 'Tactics & Gaming',
-      followers: '300K+',
+      followers: '180K+',
       featured: true,
       website: 'https://youtube.com/@auspextactics',
       socialLinks: {
@@ -55,7 +94,7 @@ export default function CreatorsList() {
       name: 'Midwinter Minis',
       description: 'Midwinter Minis is a channel dedicated to wargaming and miniature painting tutorials. We\'re here to get your models looking great and tabletop ready in easy to follow, fast, and effective steps. We\'re honest, to-the-point, and a little bit cheeky.',
       category: 'Painting & Hobby',
-      followers: '200K+',
+      followers: '551K+',
       featured: false,
       website: 'https://midwinterminis.com',
       socialLinks: {
@@ -70,7 +109,7 @@ export default function CreatorsList() {
       name: 'Tabletop Tactics',
       description: 'We roll dice and cut shows across the worlds of tabletop gaming! We\'re big on the entertainment, fast with the fun and slick with the tactics. Want to roll with us? Subscribe for more shows every week!',
       category: 'Battle Reports',
-      followers: '400K+',
+      followers: '320K+',
       featured: false,
       website: 'https://tabletoptactics.com',
       socialLinks: {
@@ -84,7 +123,7 @@ export default function CreatorsList() {
       name: 'Duncan Rhodes',
       description: 'The aim of the channel is to teach you the skills to paint any miniature you want across a wide range of game systems. All the techniques, methods, colour palettes and tips and tricks can be used on any miniature in your collection.',
       category: 'Painting & Tutorials',
-      followers: '600K+',
+      followers: '507K+',
       featured: false,
       website: 'https://duncanrhodes.com',
       socialLinks: {
@@ -194,10 +233,13 @@ export default function CreatorsList() {
               <div className="text-center p-4 bg-warhammer-dark/50 rounded-lg">
                 <p className="text-lavender-gray text-sm mb-2">Support this creator</p>
                 <div className="flex items-center justify-center text-sm">
-                  <div className="flex items-center space-x-1">
+                  <button
+                    onClick={(event) => handleShare(creator, event)}
+                    className="flex items-center space-x-1 hover:text-warhammer-gold transition-colors duration-200 cursor-pointer"
+                  >
                     <ExternalLink size={14} className="text-warhammer-gold" />
                     <span className="text-lavender-gray">Share</span>
-                  </div>
+                  </button>
                 </div>
               </div>
             </motion.div>
