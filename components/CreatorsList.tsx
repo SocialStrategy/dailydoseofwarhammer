@@ -147,15 +147,8 @@ export default function CreatorsList() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className={`warhammer-card ${creator.featured ? 'border-2 border-warhammer-gold' : ''} relative`}
+              className="warhammer-card border-2 border-warhammer-gold relative"
             >
-              {creator.featured && (
-                <div className="absolute top-4 left-4 z-10">
-                  <div className="bg-warhammer-gold text-warhammer-dark font-anton text-xs px-2 py-1 rounded">
-                    FEATURED
-                  </div>
-                </div>
-              )}
 
               {/* Creator Header */}
               <div className="text-center mb-6">
