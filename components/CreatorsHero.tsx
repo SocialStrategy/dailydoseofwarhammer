@@ -57,31 +57,7 @@ export default function CreatorsHero() {
           </div>
         </motion.div>
 
-        {/* Featured Creator Spotlight */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="warhammer-card text-center py-12"
-        >
-          <div className="max-w-3xl mx-auto">
-            <h2 className="font-anton text-3xl text-warhammer-gold mb-6">
-              CREATOR SPOTLIGHT
-            </h2>
-            <p className="text-text-light text-lg mb-8">
-              Our curated list of creators brings you the best Warhammer content from across the community. 
-              From painting tutorials to battle reports, strategy guides to lore deep-dives.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="#featured" className="warhammer-button">
-                VIEW SPOTLIGHT
-              </a>
-              <a href="/submissions" className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-dark">
-                SUBMIT YOUR WORK
-              </a>
-            </div>
-          </div>
-        </motion.div>
+
       </div>
     </section>
   )

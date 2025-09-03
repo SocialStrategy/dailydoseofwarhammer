@@ -98,19 +98,7 @@ export default function CreatorsList() {
   return (
     <section className="py-20 px-4 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="section-title">FEATURED CREATORS</h2>
-          <p className="content-text text-lavender-gray max-w-3xl mx-auto">
-            These creators represent the best of the Warhammer 40k community. 
-            Support them by visiting their channels and following their work.
-          </p>
-        </motion.div>
+
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {creators.map((creator, index) => (
