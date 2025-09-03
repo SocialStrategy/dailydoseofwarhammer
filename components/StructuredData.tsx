@@ -20,7 +20,7 @@ export default function StructuredData() {
     },
     "sameAs": [
       "https://www.instagram.com/dailydoseofwarhammer/",
-      "https://www.youtube.com/@dailydoseofwarhammer",
+      "https://www.youtube.com/@yourdailydoseofwarhammer",
       "https://discord.gg/dailydoseofwarhammer"
     ]
   }
@@ -92,7 +92,7 @@ export function OrganizationStructuredData() {
     "logo": "https://dailydoseofwarhammer.com/images/ddow logo.jpg",
     "sameAs": [
       "https://www.instagram.com/dailydoseofwarhammer/",
-      "https://www.youtube.com/@dailydoseofwarhammer",
+      "https://www.youtube.com/@yourdailydoseofwarhammer",
       "https://discord.gg/dailydoseofwarhammer"
     ],
     "contactPoint": {

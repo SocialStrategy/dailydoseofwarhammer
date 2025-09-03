@@ -47,6 +47,18 @@ export function getLatestFanSubmission(): FanSubmission | null {
     const folderParts = latestFolder.split('-')
     const artist = folderParts[0]
     const dateStr = folderParts.slice(1).join('-') // Handle dates with dots
+    
+    // Convert date format from DD.MM.YY to YYYY-MM-DD for proper display
+    let formattedDate = new Date().toISOString().split('T')[0] // Default to today
+    if (dateStr && dateStr.includes('.')) {
+      const dateParts = dateStr.split('.')
+      if (dateParts.length === 3) {
+        const [day, month, year] = dateParts
+        // Convert YY to YYYY (assuming 20XX)
+        const fullYear = year.length === 2 ? `20${year}` : year
+        formattedDate = `${fullYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+      }
+    }
 
     // Create the featured post data
     const featuredPost: FanSubmission = {
@@ -55,7 +67,7 @@ export function getLatestFanSubmission(): FanSubmission | null {
       description: `A showcase of ${artist}'s exceptional miniature painting work. This piece demonstrates advanced techniques and incredible attention to detail.`,
       category: 'Miniature Painting',
       images: imageFiles.map(file => `/images/Fan-Submissions/${latestFolder}/${file}`),
-      date: dateStr || new Date().toISOString().split('T')[0],
+      date: formattedDate,
       tags: ['Miniature Painting', 'Warhammer 40k', 'Community Work', 'Featured Artist']
     }
 
@@ -89,6 +101,18 @@ export function getAllFanSubmissions(): FanSubmission[] {
       const folderParts = folder.split('-')
       const artist = folderParts[0]
       const dateStr = folderParts.slice(1).join('-')
+      
+      // Convert date format from DD.MM.YY to YYYY-MM-DD for proper display
+      let formattedDate = new Date().toISOString().split('T')[0] // Default to today
+      if (dateStr && dateStr.includes('.')) {
+        const dateParts = dateStr.split('.')
+        if (dateParts.length === 3) {
+          const [day, month, year] = dateParts
+          // Convert YY to YYYY (assuming 20XX)
+          const fullYear = year.length === 2 ? `20${year}` : year
+          formattedDate = `${fullYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+        }
+      }
 
       return {
         artist,
@@ -96,7 +120,7 @@ export function getAllFanSubmissions(): FanSubmission[] {
         description: `A showcase of ${artist}'s miniature painting work.`,
         category: 'Miniature Painting',
         images: imageFiles.map(file => `/images/Fan-Submissions/${folder}/${file}`),
-        date: dateStr || new Date().toISOString().split('T')[0],
+        date: formattedDate,
         tags: ['Miniature Painting', 'Warhammer 40k', 'Community Work']
       }
     })
