@@ -24,13 +24,13 @@ export default function CreatorsList() {
     {
       id: '1',
       name: 'Spikey Bits',
-      description: 'Premier source for Warhammer 40k news, rumors, and community content. Known for breaking news and comprehensive coverage of the hobby.',
+      description: 'Founded in 2009 by hobbyist Rob Baer. For over 15 years, we have produced entertaining and informative articles and videos about tabletop gaming and miniatures.',
       category: 'News & Community',
       followers: '500K+',
       featured: true,
       website: 'https://spikeybits.com',
       socialLinks: {
-        youtube: 'https://youtube.com/@spikeybits',
+        youtube: 'https://www.youtube.com/@spikeybitstv',
         instagram: 'https://instagram.com/spikeybits',
         website: 'https://spikeybits.com'
       },
@@ -39,7 +39,7 @@ export default function CreatorsList() {
     {
       id: '2',
       name: 'Auspex Tactics',
-      description: 'In-depth tactical analysis and competitive gaming insights for Warhammer 40k. Expert breakdowns of rules, strategies, and tournament play.',
+      description: 'Auspex Tactics makes focused Warhammer 40K strategy videos usually looking at a single unit, idea or concept. The game of 40K is complex, diverse and fascinating, and I\'m looking forward to sharing my game knowledge in as many youtube videos as I can create!',
       category: 'Tactics & Gaming',
       followers: '300K+',
       featured: true,
@@ -53,7 +53,7 @@ export default function CreatorsList() {
     {
       id: '3',
       name: 'Midwinter Minis',
-      description: 'Amazing painting tutorials and hobby content. Known for creative techniques and inspiring miniature painting guides.',
+      description: 'Midwinter Minis is a channel dedicated to wargaming and miniature painting tutorials. We\'re here to get your models looking great and tabletop ready in easy to follow, fast, and effective steps. We\'re honest, to-the-point, and a little bit cheeky.',
       category: 'Painting & Hobby',
       followers: '200K+',
       featured: false,
@@ -68,7 +68,7 @@ export default function CreatorsList() {
     {
       id: '4',
       name: 'Tabletop Tactics',
-      description: 'High-quality battle reports and gaming content. Professional production values and entertaining gameplay.',
+      description: 'We roll dice and cut shows across the worlds of tabletop gaming! We\'re big on the entertainment, fast with the fun and slick with the tactics. Want to roll with us? Subscribe for more shows every week!',
       category: 'Battle Reports',
       followers: '400K+',
       featured: false,
@@ -82,13 +82,13 @@ export default function CreatorsList() {
     {
       id: '5',
       name: 'Duncan Rhodes',
-      description: 'Former Games Workshop painter sharing professional painting techniques and tutorials.',
+      description: 'The aim of the channel is to teach you the skills to paint any miniature you want across a wide range of game systems. All the techniques, methods, colour palettes and tips and tricks can be used on any miniature in your collection.',
       category: 'Painting & Tutorials',
       followers: '600K+',
       featured: false,
       website: 'https://duncanrhodes.com',
       socialLinks: {
-        youtube: 'https://youtube.com/@duncanrhodes',
+        youtube: 'https://www.youtube.com/@DuncanRhodesDRPA',
         website: 'https://duncanrhodes.com'
       },
       logo: '/images/Creator-logos/Duncan Rhodes.jpg'
