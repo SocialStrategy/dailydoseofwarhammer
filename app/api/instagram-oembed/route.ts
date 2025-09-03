@@ -15,37 +15,61 @@ export async function GET(request: NextRequest) {
     // Ensure URL ends with / for Instagram oEmbed API
     const cleanUrl = url.endsWith('/') ? url : `${url}/`
     
-    // Instagram oEmbed API endpoint (no token required for public content)
-    const oembedUrl = `https://graph.instagram.com/instagram_oembed?url=${encodeURIComponent(cleanUrl)}&omitscript=true`
-    
-    console.log('Fetching Instagram oEmbed for:', cleanUrl)
-    
-    const response = await fetch(oembedUrl, {
-      method: 'GET',
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'application/json',
-        'Cache-Control': 'no-cache',
+    // Try multiple approaches for Instagram oEmbed
+    const approaches = [
+      // Approach 1: Try the old public oEmbed endpoint
+      {
+        name: 'Legacy oEmbed',
+        url: `https://graph.instagram.com/instagram_oembed?url=${encodeURIComponent(cleanUrl)}&omitscript=true`
       },
-    })
+      // Approach 2: Try without omitscript
+      {
+        name: 'Legacy oEmbed (with script)',
+        url: `https://graph.instagram.com/instagram_oembed?url=${encodeURIComponent(cleanUrl)}`
+      },
+      // Approach 3: Try the Facebook Graph API endpoint
+      {
+        name: 'Facebook Graph API',
+        url: `https://graph.facebook.com/v18.0/instagram_oembed?url=${encodeURIComponent(cleanUrl)}`
+      }
+    ]
 
-    console.log('Instagram API response status:', response.status)
+    for (const approach of approaches) {
+      try {
+        console.log(`Trying ${approach.name} for:`, cleanUrl)
+        
+        const response = await fetch(approach.url, {
+          method: 'GET',
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache',
+            'Referer': 'https://dailydoseofwarhammer.com/',
+            'Origin': 'https://dailydoseofwarhammer.com'
+          },
+        })
 
-    if (!response.ok) {
-      const errorText = await response.text()
-      console.error('Instagram API error response:', errorText)
-      throw new Error(`Instagram API responded with ${response.status}: ${errorText}`)
+        console.log(`${approach.name} response status:`, response.status)
+
+        if (response.ok) {
+          const data = await response.json()
+          console.log(`${approach.name} success:`, { title: data.title, hasHtml: !!data.html })
+          
+          if (data.html) {
+            return NextResponse.json(data)
+          }
+        } else {
+          const errorText = await response.text()
+          console.log(`${approach.name} failed:`, response.status, errorText)
+        }
+      } catch (err) {
+        console.log(`${approach.name} error:`, err)
+        continue
+      }
     }
 
-    const data = await response.json()
-    console.log('Instagram oEmbed data received:', { title: data.title, hasHtml: !!data.html })
-    
-    if (!data.html) {
-      throw new Error('No embed HTML received from Instagram')
-    }
-
-    // Return the oEmbed data
-    return NextResponse.json(data)
+    // All approaches failed, return fallback
+    throw new Error('All Instagram oEmbed approaches failed')
 
   } catch (error) {
     console.error('Instagram oEmbed API error:', error)
@@ -55,7 +79,8 @@ export async function GET(request: NextRequest) {
       { 
         error: 'Failed to fetch Instagram embed',
         message: error instanceof Error ? error.message : 'Unknown error',
-        fallback: true
+        fallback: true,
+        requiresToken: true
       },
       { status: 500 }
     )

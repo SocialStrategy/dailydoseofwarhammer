@@ -71,21 +71,68 @@ export default function InstagramEmbed({ url, className = '' }: InstagramEmbedPr
     }
   }, [url])
 
-  // Fallback iframe generator
+  // Fallback iframe generator with better URL handling
   const generateIframeFallback = (instagramUrl: string): string => {
-    const embedUrl = instagramUrl.replace('/reel/', '/p/').replace(/\/$/, '') + '/embed'
-    return `
-      <div style="position: relative; width: 100%; padding-bottom: 125%; background: #fff; border-radius: 8px; overflow: hidden;">
-        <iframe 
-          src="${embedUrl}"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-          frameborder="0"
-          scrolling="no"
-          allowtransparency="true"
-          loading="lazy"
-        ></iframe>
-      </div>
-    `
+    try {
+      // Extract the post ID from various Instagram URL formats
+      let embedUrl = ''
+      
+      // Handle different Instagram URL formats:
+      // https://www.instagram.com/p/ABC123/
+      // https://www.instagram.com/reel/ABC123/
+      // https://instagram.com/p/ABC123/
+      
+      const url = new URL(instagramUrl)
+      const pathParts = url.pathname.split('/').filter(part => part)
+      
+      if (pathParts.length >= 2) {
+        const postType = pathParts[0] // 'p' or 'reel'
+        const postId = pathParts[1]   // the actual post ID
+        
+        // Instagram embed URLs work with /p/ format for both posts and reels
+        embedUrl = `https://www.instagram.com/p/${postId}/embed/?cr=1&v=1&wp=1&rd=https%3A%2F%2Fdailydoseofwarhammer.com&rp=%2F`
+      } else {
+        // Fallback: try to convert the URL directly
+        embedUrl = instagramUrl.replace('/reel/', '/p/').replace(/\/$/, '') + '/embed/?cr=1&v=1&wp=1'
+      }
+
+      console.log('Generated Instagram embed URL:', embedUrl)
+
+      return `
+        <div style="position: relative; width: 100%; max-width: 540px; margin: 0 auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15);">
+          <div style="position: relative; width: 100%; padding-bottom: 125%;">
+            <iframe 
+              src="${embedUrl}"
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+              frameborder="0"
+              scrolling="no"
+              allowtransparency="true"
+              loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            ></iframe>
+          </div>
+        </div>
+      `
+    } catch (error) {
+      console.error('Error generating Instagram iframe fallback:', error)
+      
+      // Ultimate fallback - basic iframe
+      const basicEmbedUrl = instagramUrl.replace('/reel/', '/p/').replace(/\/$/, '') + '/embed/'
+      return `
+        <div style="position: relative; width: 100%; max-width: 540px; margin: 0 auto; background: #fff; border-radius: 8px; overflow: hidden;">
+          <div style="position: relative; width: 100%; padding-bottom: 125%;">
+            <iframe 
+              src="${basicEmbedUrl}"
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+              frameborder="0"
+              scrolling="no"
+              allowtransparency="true"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      `
+    }
   }
 
   // Load Instagram embed script if not already loaded
