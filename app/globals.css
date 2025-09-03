@@ -79,3 +79,31 @@
     background-color: rgba(26, 26, 26, 0.8);
   }
 }
+
+/* Instagram oEmbed Styles */
+.instagram-embed-container {
+  max-width: 100%;
+}
+
+.instagram-embed-container blockquote.instagram-media {
+  background: #FFF !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15) !important;
+  margin: 0 !important;
+  max-width: 540px !important;
+  min-width: 326px !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+.instagram-embed-container blockquote.instagram-media div {
+  padding: 16px !important;
+}
+
+/* Responsive Instagram embeds */
+@media (max-width: 540px) {
+  .instagram-embed-container blockquote.instagram-media {
+    min-width: 100% !important;
+  }
+}

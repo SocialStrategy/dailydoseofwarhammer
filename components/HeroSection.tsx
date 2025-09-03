@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import InstagramEmbed from './InstagramEmbed'
 
 export default function HeroSection() {
   return (
@@ -57,19 +58,10 @@ export default function HeroSection() {
           className="flex-1 flex justify-center lg:justify-end"
         >
           <div className="w-full max-w-lg">
-            <div className="bg-white rounded-lg shadow-2xl overflow-hidden">
-              <div className="relative w-full" style={{ paddingBottom: '125%' }}>
-                <iframe
-                  src="https://www.instagram.com/reel/DKvAVkGsMfJ/embed"
-                  className="absolute inset-0 w-full h-full"
-                  frameBorder="0"
-                  scrolling="no"
-                  allowTransparency={true}
-                  title="Daily Dose of Warhammer Featured Video"
-                  loading="lazy"
-                />
-              </div>
-            </div>
+            <InstagramEmbed 
+              url="https://www.instagram.com/reel/DKvAVkGsMfJ/"
+              className="bg-white rounded-lg shadow-2xl overflow-hidden"
+            />
           </div>
         </motion.div>
       </div>
