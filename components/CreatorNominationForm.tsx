@@ -30,20 +30,32 @@ export default function CreatorNominationForm() {
     setSubmitStatus('idle')
 
     try {
-      // Here you would typically send the data to your API
-      // For now, we'll simulate a submission
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      setSubmitStatus('success')
-      setFormData({
-        creatorName: '',
-        youtubeLink: '',
-        instagramLink: '',
-        websiteLink: '',
-        whyGreat: '',
-        submitterEmail: ''
+      const response = await fetch('/api/nominations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({
+          creatorName: '',
+          youtubeLink: '',
+          instagramLink: '',
+          websiteLink: '',
+          whyGreat: '',
+          submitterEmail: ''
+        })
+      } else {
+        console.error('Submission error:', result.error)
+        setSubmitStatus('error')
+      }
     } catch (error) {
+      console.error('Network error:', error)
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
