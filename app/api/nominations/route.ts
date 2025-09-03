@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import nodemailer from 'nodemailer'
 
 export async function POST(request: NextRequest) {
   try {
@@ -59,24 +60,30 @@ Submitted at: ${new Date().toLocaleString('en-US', {
 This nomination was submitted through the Daily Dose of Warhammer website.
     `.trim()
 
-    // Here you would typically use a service like SendGrid, Nodemailer, or Resend
-    // For now, we'll log the submission and return success
-    console.log('Creator Nomination Received:', {
-      creatorName,
-      submitterEmail,
-      timestamp: new Date().toISOString()
+    // Send email using Gmail SMTP
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: process.env.SMTP_USER, // your gmail address
+        pass: process.env.SMTP_PASS  // your app password
+      }
     })
 
-    // In a production environment, you would send the email here
-    // Example with a hypothetical email service:
-    /*
-    await emailService.send({
+    await transporter.sendMail({
+      from: `"Daily Dose of Warhammer" <${process.env.SMTP_USER}>`,
       to: 'nominations@dailydoseofwarhammer.com',
       subject: emailSubject,
       text: emailBody,
       replyTo: submitterEmail
     })
-    */
+
+    console.log('Creator nomination email sent successfully:', {
+      creatorName,
+      submitterEmail,
+      timestamp: new Date().toISOString()
+    })
 
     return NextResponse.json({ 
       success: true, 
