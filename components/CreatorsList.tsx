@@ -259,9 +259,17 @@ export default function CreatorsList() {
               <a href="/submissions" className="warhammer-button">
                 SUBMIT YOUR WORK
               </a>
-              <a href="/submissions" className="warhammer-button">
+              <button 
+                onClick={() => {
+                  const form = document.getElementById('nominate-form')
+                  if (form) {
+                    form.scrollIntoView({ behavior: 'smooth' })
+                  }
+                }}
+                className="warhammer-button"
+              >
                 NOMINATE CREATOR
-              </a>
+              </button>
             </div>
           </div>
         </motion.div>

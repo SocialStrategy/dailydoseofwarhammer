@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import CreatorsHero from '@/components/CreatorsHero'
 import CreatorsList from '@/components/CreatorsList'
+import CreatorNominationForm from '@/components/CreatorNominationForm'
 
 export const metadata: Metadata = {
   title: 'Creators We Love - Daily Dose of Warhammer',
@@ -40,6 +41,11 @@ export default function CreatorsPage() {
     <main className="min-h-screen bg-gradient-to-b from-warhammer-dark via-warhammer-gray to-dark-byzantium">
       <CreatorsHero />
       <CreatorsList />
+      <div className="py-20 px-4 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <CreatorNominationForm />
+        </div>
+      </div>
     </main>
   )
 }
