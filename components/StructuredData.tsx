@@ -21,7 +21,7 @@ export default function StructuredData() {
     "sameAs": [
       "https://www.instagram.com/dailydoseofwarhammer/",
       "https://www.youtube.com/@yourdailydoseofwarhammer",
-      "https://discord.gg/dailydoseofwarhammer"
+      "https://discord.com/invite/RP95BNkRH6"
     ]
   }
 
@@ -93,7 +93,7 @@ export function OrganizationStructuredData() {
     "sameAs": [
       "https://www.instagram.com/dailydoseofwarhammer/",
       "https://www.youtube.com/@yourdailydoseofwarhammer",
-      "https://discord.gg/dailydoseofwarhammer"
+      "https://discord.com/invite/RP95BNkRH6"
     ],
     "contactPoint": {
       "@type": "ContactPoint",

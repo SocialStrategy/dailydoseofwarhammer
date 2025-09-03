@@ -19,7 +19,7 @@ export default function Navigation() {
   const socialLinks = [
     { name: 'Instagram', href: 'https://www.instagram.com/dailydoseofwarhammer/', icon: Instagram },
     { name: 'YouTube', href: 'https://www.youtube.com/@yourdailydoseofwarhammer', icon: Youtube },
-    { name: 'Discord', href: 'https://discord.gg/dailydoseofwarhammer', icon: MessageCircle },
+    { name: 'Discord', href: 'https://discord.com/invite/RP95BNkRH6', icon: MessageCircle },
   ]
 
   return (

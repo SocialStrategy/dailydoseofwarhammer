@@ -33,7 +33,7 @@ export default function SocialLinks() {
       name: 'Discord',
       description: 'Join our community server to discuss tactics, share your work, and connect with fellow hobbyists.',
       icon: MessageCircle,
-      url: process.env.NEXT_PUBLIC_DISCORD_INVITE || 'https://discord.gg/RP95BNkRH6',
+      url: process.env.NEXT_PUBLIC_DISCORD_INVITE || 'https://discord.com/invite/RP95BNkRH6',
       color: 'from-indigo-500 to-purple-600',
       followers: '3.1k'
     }
@@ -119,7 +119,7 @@ export default function SocialLinks() {
               <a href="/news" className="warhammer-button">
                 READ LATEST NEWS
               </a>
-              <a href="https://discord.gg/dailydoseofwarhammer" target="_blank" rel="noopener noreferrer" className="warhammer-button">
+              <a href="https://discord.com/invite/RP95BNkRH6" target="_blank" rel="noopener noreferrer" className="warhammer-button">
                 JOIN DISCORD SERVER
               </a>
             </div>

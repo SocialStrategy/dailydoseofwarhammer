@@ -58,14 +58,17 @@ export default function HeroSection() {
         >
           <div className="w-full max-w-lg">
             <div className="bg-white rounded-lg shadow-2xl overflow-hidden">
-              <iframe
-                src="https://www.instagram.com/reel/DKvAVkGsMfJ/embed"
-                className="w-full h-[500px]"
-                frameBorder="0"
-                scrolling="no"
-                allowTransparency={true}
-                title="Daily Dose of Warhammer Featured Video"
-              />
+              <div className="relative w-full" style={{ paddingBottom: '125%' }}>
+                <iframe
+                  src="https://www.instagram.com/reel/DKvAVkGsMfJ/embed"
+                  className="absolute inset-0 w-full h-full"
+                  frameBorder="0"
+                  scrolling="no"
+                  allowTransparency={true}
+                  title="Daily Dose of Warhammer Featured Video"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </div>
         </motion.div>
