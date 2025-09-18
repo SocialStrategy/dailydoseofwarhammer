@@ -100,7 +100,7 @@ export default function InstagramEmbed({ url, className = '' }: InstagramEmbedPr
 
       return `
         <div style="position: relative; width: 100%; max-width: 540px; margin: 0 auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15);">
-          <div style="position: relative; width: 100%; padding-bottom: 125%;">
+          <div style="position: relative; width: 100%; padding-bottom: 140%;">
             <iframe 
               src="${embedUrl}"
               style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
@@ -120,7 +120,7 @@ export default function InstagramEmbed({ url, className = '' }: InstagramEmbedPr
       const basicEmbedUrl = instagramUrl.replace('/reel/', '/p/').replace(/\/$/, '') + '/embed/'
       return `
         <div style="position: relative; width: 100%; max-width: 540px; margin: 0 auto; background: #fff; border-radius: 8px; overflow: hidden;">
-          <div style="position: relative; width: 100%; padding-bottom: 125%;">
+          <div style="position: relative; width: 100%; padding-bottom: 140%;">
             <iframe 
               src="${basicEmbedUrl}"
               style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"

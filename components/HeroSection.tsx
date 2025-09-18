@@ -57,7 +57,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex-1 flex justify-center lg:justify-end"
         >
-          <div className="w-full max-w-lg">
+          <div className="w-full max-w-lg min-h-[600px]">
             <InstagramEmbed 
               url="https://www.instagram.com/reel/DICX7hks02v/?igsh=MTNmNmtqZnhzaHd3aA=="
               className="bg-white rounded-lg shadow-2xl overflow-hidden"
