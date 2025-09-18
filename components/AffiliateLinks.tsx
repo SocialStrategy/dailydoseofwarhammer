@@ -14,7 +14,7 @@ export default function AffiliateLinks() {
       url: 'https://gamemat.eu',
       rating: 4.8,
       reviews: 1247,
-      image: '/images/Affiliate-logos/gamemat.eu.svg'
+      image: '/images/Affiliate-logos/gamemateu updated picture.jpeg'
     },
     {
       name: 'EA & J Labs LLC',
@@ -25,7 +25,7 @@ export default function AffiliateLinks() {
       url: 'https://eaandjlabsllc.etsy.com',
       rating: 4.6,
       reviews: 892,
-      image: '/images/Affiliate-logos/ea and j labs.jpg'
+      image: '/images/Affiliate-logos/ea and j labs new.jpg'
     },
     {
       name: 'Spikey Bits',

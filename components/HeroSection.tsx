@@ -59,7 +59,7 @@ export default function HeroSection() {
         >
           <div className="w-full max-w-lg">
             <InstagramEmbed 
-              url="https://www.instagram.com/reel/DKvAVkGsMfJ/"
+              url="https://www.instagram.com/reel/DICX7hks02v/?igsh=MTNmNmtqZnhzaHd3aA=="
               className="bg-white rounded-lg shadow-2xl overflow-hidden"
             />
           </div>
