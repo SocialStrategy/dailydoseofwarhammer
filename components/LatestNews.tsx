@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, Calendar, Tag, RefreshCw } from 'lucide-react'
+import { ExternalLink, Calendar, Tag } from 'lucide-react'
 
 interface NewsArticle {
   id: string
@@ -23,7 +23,6 @@ export default function LatestNews() {
   const [newsData, setNewsData] = useState<NewsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
     fetchNews()
@@ -58,23 +57,6 @@ export default function LatestNews() {
     }
   }
 
-  const refreshNews = async () => {
-    try {
-      setRefreshing(true)
-      const response = await fetch('/api/news', { method: 'POST' })
-      
-      if (response.ok) {
-        await fetchNews()
-      } else {
-        setError('Failed to refresh news')
-      }
-    } catch (err) {
-      setError('Error refreshing news')
-      console.error('Error refreshing news:', err)
-    } finally {
-      setRefreshing(false)
-    }
-  }
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -125,20 +107,9 @@ export default function LatestNews() {
             Latest News
           </h2>
           <p className="text-warhammer-red mb-4">{error}</p>
-          <button
-            onClick={refreshNews}
-            disabled={refreshing}
-            className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-red transition-colors duration-300 disabled:opacity-50"
-          >
-            {refreshing ? (
-              <>
-                <RefreshCw className="w-5 h-5 animate-spin mr-2" />
-                Refreshing...
-              </>
-            ) : (
-              'Try Again'
-            )}
-          </button>
+          <p className="text-text-light text-sm">
+            News updates automatically daily. Please check back later.
+          </p>
         </div>
       </section>
     )
@@ -249,29 +220,6 @@ export default function LatestNews() {
           ))}
         </div>
 
-        {/* Load More Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <button
-            onClick={refreshNews}
-            disabled={refreshing}
-            className="warhammer-button bg-transparent border-2 border-warhammer-gold hover:bg-warhammer-gold hover:text-warhammer-red transition-colors duration-300 disabled:opacity-50"
-          >
-            {refreshing ? (
-              <>
-                <RefreshCw className="w-5 h-5 animate-spin mr-2" />
-                Refreshing...
-              </>
-            ) : (
-              'Refresh News'
-            )}
-          </button>
-        </motion.div>
       </div>
     </section>
   )
