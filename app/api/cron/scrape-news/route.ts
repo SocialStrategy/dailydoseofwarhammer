@@ -6,7 +6,10 @@ export async function GET(request: NextRequest) {
   try {
     // Verify this is a legitimate Vercel cron request
     const authHeader = request.headers.get('authorization');
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    const cronSecret = process.env.CRON_SECRET;
+    
+    // Allow both Vercel cron and manual testing
+    if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -24,7 +27,8 @@ export async function GET(request: NextRequest) {
       success: true,
       message: 'News scraping completed successfully',
       articlesFound: news.length,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      lastUpdated: new Date().toISOString()
     });
 
   } catch (error) {
