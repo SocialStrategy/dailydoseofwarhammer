@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ExternalLink, Calendar, Tag, RefreshCw } from 'lucide-react'
-import EngagementBar from './EngagementBar'
 
 interface NewsArticle {
   id: string
@@ -79,12 +78,6 @@ export default function LatestNews() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    const now = new Date()
-    const diffTime = Math.abs(now.getTime() - date.getTime())
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-    
-    if (diffDays === 1) return 'Yesterday'
-    if (diffDays < 7) return `${diffDays} days ago`
     return date.toLocaleDateString('en-US', { 
       month: 'short', 
       day: 'numeric',
@@ -105,6 +98,12 @@ export default function LatestNews() {
     }
     
     return colors[category] || 'bg-warhammer-gray text-white'
+  }
+
+  const handleArticleClick = (link: string) => {
+    if (link) {
+      window.open(link, '_blank', 'noopener,noreferrer')
+    }
   }
 
   if (loading) {
@@ -198,6 +197,7 @@ export default function LatestNews() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
               className="warhammer-card group cursor-pointer hover:scale-105 transition-transform duration-300"
+              onClick={() => handleArticleClick(article.link)}
             >
               {/* Image */}
               <div className="relative mb-4 overflow-hidden rounded-lg">
@@ -245,16 +245,6 @@ export default function LatestNews() {
                 </p>
               </div>
 
-              {/* Engagement Bar */}
-              <div className="px-4 pb-4">
-                <EngagementBar
-                  type="news"
-                  id={article.id}
-                  initialData={{
-                    shares: 0
-                  }}
-                />
-              </div>
             </motion.article>
           ))}
         </div>
