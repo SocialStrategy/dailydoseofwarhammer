@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, Calendar, Tag } from 'lucide-react'
+import { ExternalLink, Tag } from 'lucide-react'
 
 interface NewsArticle {
   id: string
@@ -58,14 +58,6 @@ export default function LatestNews() {
   }
 
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric',
-      year: 'numeric'
-    })
-  }
 
   const getCategoryColor = (category: string) => {
     const colors: { [key: string]: string } = {
@@ -126,7 +118,7 @@ export default function LatestNews() {
             No news articles available at the moment.
           </p>
           <p className="text-sm text-text-light mt-2">
-            Last updated: {newsData?.lastUpdated ? formatDate(newsData.lastUpdated) : 'Never'}
+            Last updated: {newsData?.lastUpdated ? new Date(newsData.lastUpdated).toLocaleDateString() : 'Never'}
           </p>
         </div>
       </section>
@@ -153,7 +145,7 @@ export default function LatestNews() {
           </p>
           {newsData && (
             <p className="text-sm text-text-light mt-2">
-              Last updated: {formatDate(newsData.lastUpdated)}
+              Last updated: {new Date(newsData.lastUpdated).toLocaleDateString()}
             </p>
           )}
         </motion.div>
@@ -200,13 +192,6 @@ export default function LatestNews() {
 
               {/* Content */}
               <div className="p-4">
-                <div className="flex items-center justify-between text-sm text-text-light mb-3">
-                  <span className="flex items-center space-x-1">
-                    <Calendar size={14} />
-                    <span>{formatDate(article.date)}</span>
-                  </span>
-                </div>
-
                 <h3 className="font-anton text-xl text-white mb-3 group-hover:text-warhammer-gold transition-colors duration-300">
                   {article.title}
                 </h3>
